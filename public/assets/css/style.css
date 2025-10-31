@@ -208,8 +208,8 @@ textarea:focus {
 :root {
   --body-font: "Poppins", sans-serif;
   --transition: all 0.5s ease-in-out;
-  --p1: rgba(0, 146, 129, 1);
-  --n1: rgba(14, 13, 57, 1);
+  --p1: /* rgba(0, 146, 129, 1); */ #0fa49e;
+  --n1: /* rgba(14, 13, 57, 1); */ #ec4e81;
   --n2: rgba(69, 69, 103, 1);
   --n40: rgba(224, 224, 229, 1);
   --white: #ffff;
@@ -1238,8 +1238,8 @@ textarea:focus {
   right: 0;
   left: 0;
   background-color: var(--p1);
-  height: 126px;
-  border-radius: 40px 40px 0px 0px;
+  height: 100px;
+  border-radius: 20px 20px 0px 0px;
 }
 .footer-menu-area .footer-menu {
   height: 100%;

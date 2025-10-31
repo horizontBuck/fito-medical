@@ -1,8 +1,8 @@
  <!-- Search Section Start -->
       <section class="search-section w-100 px-6 pt-8">
         <div class="">
-          <p class="date">Friday, July 15</p>
-          <h2 class="heading-2 pt-2 pb-6">Let’s Find Your Doctor</h2>
+        <p class="date">{{ currentDate }}</p>
+          <h2 class="heading-2 pt-2 pb-6">Bienvenid@ a Fito-Salud</h2>
 
           <div
             class="search-area d-flex justify-content-between align-items-center gap-2 w-100"
@@ -25,12 +25,11 @@
         </div>
       </section>
       <!-- Search Section End -->
-
-      <!-- Upcoming Schedule Start -->
+        <!-- Upcoming Schedule Start -->
       <section class="upcoming-slider-area pt-8">
         <div class="">
-          <h3 class="heading-3 ps-6">Upcoming Shedule</h3>
-
+<!--           <h3 class="heading-3 ps-6">Upcoming Shedule</h3>
+ -->
           <div class="swiper doctor-appointment-slider custom pt-10">
             <div class="swiper-wrapper">
               <div
@@ -40,12 +39,12 @@
                   class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
                 >
                   <p class="position-relative slider-heading">
-                    Professional Advisory: Protecting Health
+                    Asesoramiento Profesional: Protegiendo la Salud
 
                     <img src="assets/img/arrow.png" alt="" />
                   </p>
 
-                  <p class="desc">Get special 10% discount this December</p>
+                  <p class="desc">Obtén un descuento especial del 10% este Noviembre</p>
                 </div>
 
                 <div class="h-100 doctor-img-area position-relative">
@@ -69,12 +68,12 @@
                   class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
                 >
                   <p class="position-relative slider-heading">
-                    Consult with specialists, Prevent you
+                    Consulta con especialistas, Prevén tu salud
 
                     <img src="assets/img/arrow.png" alt="" />
                   </p>
 
-                  <p class="desc">Get special 10% discount this December</p>
+                  <p class="desc">Obtén un descuento especial del 10% este Noviembre</p>
                 </div>
 
                 <div class="h-100 doctor-img-area position-relative">
@@ -98,12 +97,12 @@
                   class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
                 >
                   <p class="position-relative slider-heading">
-                    Specialist Guidance: Shield Your Health
+                    Guía de Especialistas: Protege tu Salud
 
                     <img src="assets/img/arrow.png" alt="" />
                   </p>
 
-                  <p class="desc">Get special 10% discount this December</p>
+                  <p class="desc">Obtén un descuento especial del 10% este Noviembre</p>
                 </div>
 
                 <div class="h-100 doctor-img-area position-relative">
@@ -127,12 +126,12 @@
                   class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
                 >
                   <p class="position-relative slider-heading">
-                    Safe guarding Your Well-being
+                    Protección de tu bienestar
 
                     <img src="assets/img/arrow.png" alt="" />
                   </p>
 
-                  <p class="desc">Get special 10% discount this December</p>
+                  <p class="desc">Obtén un descuento especial del 10% este Noviembre</p>
                 </div>
 
                 <div class="h-100 doctor-img-area position-relative">
@@ -156,13 +155,12 @@
         </div>
       </section>
       <!-- Upcoming Schedule End -->
-
-      <!-- Doctor Specialist Start -->
+  <!-- Doctor Specialist Start -->
       <section class="px-6 pt-6 doctor-specialist-area">
         <div class="d-flex justify-content-between align-items-center">
-          <h3>Doctor Speciality</h3>
+          <h3>Especialidades</h3>
           <button id="specialityModalOpenButton" class="view-all">
-            View All
+            Ver todo
           </button>
         </div>
 
@@ -232,13 +230,16 @@
         </div>
       </section>
       <!-- Doctor Specialist End -->
+     
+
+    
 
       <!-- Top Doctor Start -->
       <section class="px-6 pt-6 top-doctor-area">
         <div class="d-flex justify-content-between align-items-center">
-          <h3>Top Doctor</h3>
+          <h3>Top profesionales</h3>
           <button class="view-all" id="topDoctorModalOpenButton">
-            View All
+            Ver todo
           </button>
         </div>
 
@@ -283,9 +284,9 @@
             </div>
             <div class="d-flex justify-content-between align-items-center pt-4">
               <a
-                href="doctor-profile.html"
+                routerLink="/detail-profesional"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -335,7 +336,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -385,7 +386,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -435,7 +436,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -485,7 +486,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -535,7 +536,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -585,7 +586,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>
@@ -635,7 +636,7 @@
               <a
                 href="doctor-profile.html"
                 class="appointment-link d-block p1-color"
-                >Appointment</a
+                >Ver perfil</a
               >
               <div class="custom-border-area position-relative mx-3">
                 <div class="line-horizontal"></div>

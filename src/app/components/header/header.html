@@ -1,18 +1,17 @@
- <main class="home-screen">
       <!-- Header Section Start -->
       <section
         class="d-flex justify-content-between align-items-center home-header-section w-100"
-      >
+        *ngIf="showHeader">
         <div class="d-flex justify-content-start align-items-center gap-4">
           <div class="">
             <img src="assets/img/user_img.png" alt="" />
           </div>
           <div class="">
-            <h3 class="heading-3 pb-2">HI, Rayhan!</h3>
+            <h3 class="heading-3 pb-2">Usuario!</h3>
             <p
               class="d-inline-flex gap-2 location justify-content-start align-items-center"
             >
-              Uttara <i class="ph-fill ph-map-pin"></i>
+              Dirección <i class="ph-fill ph-map-pin"></i>
             </p>
           </div>
         </div>
@@ -31,4 +30,4 @@
         </div>
       </section>
       <!-- Header Section End -->
-       </main>
+  

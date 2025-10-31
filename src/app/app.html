@@ -35,20 +35,20 @@
           >
             <i class="ph ph-caret-left"></i>
           </button>
-          <h2>Notification</h2>
+          <h2>Notificaciones</h2>
         </div>
 
         <div
           class="latest-update d-flex justify-content-between align-items-center pt-8 gap2"
         >
-          <p class="title">Latest Update</p>
+          <p class="title">Actualizaciones</p>
           <div
             class="d-flex justify-content-start align-items-center gap-2 flex-wrap"
           >
-            <p>Sort By:</p>
+            <p>Ordenar por:</p>
             <div class="position-relative" id="notificationSortBy">
               <p class="select-item">
-                <span class="sortByText">All</span>
+                <span class="sortByText">Todo</span>
                 <i class="ph ph-caret-down"></i>
               </p>
 
@@ -74,7 +74,7 @@
       </div>
 
       <!-- Settings area start -->
-      <div class="notification-area pt-5 px-6 d-flex flex-column gap-6 pb-8">
+     <!--  <div class="notification-area pt-5 px-6 d-flex flex-column gap-6 pb-8">
         <div class="">
           <p class="fw-bold n2-color date pb-5">Today, April 20-2022</p>
 
@@ -162,7 +162,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- Settings area end -->
     </div>
     <!-- Notification Modal End -->
@@ -176,7 +176,7 @@
           <button class="back-button flex-center" id="favoriteModalCloseButton">
             <i class="ph ph-caret-left"></i>
           </button>
-          <h2>My Favourite Doctor</h2>
+          <h2>Mis favoritos</h2>
         </div>
       </div>
 
@@ -192,7 +192,7 @@
               <div class="flex-center">
                 <i class="ph ph-magnifying-glass"></i>
               </div>
-              <input type="text" placeholder="Find here..." />
+              <input type="text" placeholder="Buscar..." />
             </div>
 
             <div class="search-button">
@@ -421,14 +421,14 @@
           <button class="back-button flex-center" id="filterModalCloseButton">
             <i class="ph ph-caret-left"></i>
           </button>
-          <h2>Filter</h2>
+          <h2>Filtros</h2>
         </div>
       </div>
 
       <!-- Available Section Start -->
       <div class="pt-8">
         <div class="d-flex justify-content-between align-items-center">
-          <h6>Available Today</h6>
+          <h6>Disponibles hoy</h6>
 
           <div class="switch">
             <input id="switch-rounded" type="checkbox" />
@@ -449,7 +449,7 @@
         class="d-flex justify-content-start align-items-start flex-column gap-8 filter-category-area pt-8"
       >
         <div class="sort-options w-100">
-          <h6 class="pb-5">Sort Option</h6>
+          <h6 class="pb-5">Opciones de ordenamiento</h6>
 
           <div
             class="p-5 options-box w-100 d-flex flex-column justify-content-start align-items-start gap-4"
@@ -458,7 +458,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Popularity</span>
+                <span class="desc">Popularidad</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -471,7 +471,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Star Rating (higest first)</span>
+                <span class="desc">Calificación (mayor a menor)</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -484,7 +484,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Star Rating (Lowest first)</span>
+                <span class="desc">Calificación (menor a mayor)</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -497,7 +497,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Best Reviewed First</span>
+                <span class="desc">Mejor calificado primero</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -510,7 +510,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Most Reviewed First</span>
+                <span class="desc">Mejor calificado primero</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -523,7 +523,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Price (lowest first)</span>
+                <span class="desc">Precio (menor a mayor)</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -536,7 +536,7 @@
               <label
                 class="custom-radio alt-size d-flex justify-content-between align-items-center"
               >
-                <span class="desc">Price (higest first)</span>
+                <span class="desc">Precio (mayor a menor)</span>
                 <input type="radio" name="gender" value="male" hidden />
                 <span class="form-radio-sign"></span>
               </label>
@@ -549,19 +549,19 @@
         </div>
 
         <div class="sort-options w-100">
-          <h6 class="pb-5">Gender</h6>
+          <h6 class="pb-5">Género</h6>
           <div class="d-flex justify-content-between align-items-center gap-4">
             <div class="gender-button">
-              <button>Male</button>
+              <button>Masculino</button>
             </div>
             <div class="gender-button active">
-              <button>Female</button>
+              <button>Femenino</button>
             </div>
           </div>
         </div>
 
         <div class="sort-options w-100">
-          <h6 class="pb-5">Work Experience ( years )</h6>
+          <h6 class="pb-5">Experiencia laboral (años)</h6>
           <div class="d-flex flex-column gap-4">
             <div
               class="d-flex justify-content-between align-items-center gap-4"
@@ -608,9 +608,9 @@
 
         <div class="schedule-section w-100">
           <div class="d-flex justify-content-between align-items-center pb-5">
-            <h6 class="">Schedules</h6>
+            <h6 class="">Horarios</h6>
             <div class="flex-center gap-2">
-              <p>January</p>
+              <p>Enero</p>
               <button class="month-change-button flex-center">
                 <i class="ph ph-caret-right"></i>
               </button>
@@ -737,7 +737,7 @@
           </div>
         </div>
 
-        <a class="link-button d-block w-100 text-center mb-8">Apply Filters</a>
+        <a class="link-button d-block w-100 text-center mb-8">Aplicar filtros</a>
       </div>
       <!-- Filter Options End -->
     </div>
@@ -755,7 +755,7 @@
           >
             <i class="ph ph-caret-left"></i>
           </button>
-          <h2>Doctor Speciality</h2>
+          <h2>Especialidad médica</h2>
         </div>
       </div>
 
@@ -774,9 +774,9 @@
           <div class="col-6">
             <div class="item flex-center flex-column px-2 py-4">
               <img src="assets/img/docton-speciality-icon-2.png" alt="" />
-              <p class="title">Physician</p>
+              <p class="title">Medicina general</p>
               <a href="home.html#" class="d-inline-flex align-items-center gap-1"
-                >95 doctors <i class="ph ph-arrow-right"></i
+                >95 médicos <i class="ph ph-arrow-right"></i
               ></a>
             </div>
           </div>
