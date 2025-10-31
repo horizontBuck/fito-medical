@@ -1,0 +1,648 @@
+ <!-- Search Section Start -->
+      <section class="search-section w-100 px-6 pt-8">
+        <div class="">
+          <p class="date">Friday, July 15</p>
+          <h2 class="heading-2 pt-2 pb-6">Let’s Find Your Doctor</h2>
+
+          <div
+            class="search-area d-flex justify-content-between align-items-center gap-2 w-100"
+          >
+            <div
+              class="search-box d-flex justify-content-start align-items-center gap-2 p-3 w-100"
+            >
+              <div class="flex-center">
+                <i class="ph ph-magnifying-glass"></i>
+              </div>
+              <input type="text" placeholder="Find here..." />
+            </div>
+
+            <div class="search-button">
+              <button class="flex-center" id="filterModalOpenButton">
+                <i class="ph ph-sliders-horizontal"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Search Section End -->
+
+      <!-- Upcoming Schedule Start -->
+      <section class="upcoming-slider-area pt-8">
+        <div class="">
+          <h3 class="heading-3 ps-6">Upcoming Shedule</h3>
+
+          <div class="swiper doctor-appointment-slider custom pt-10">
+            <div class="swiper-wrapper">
+              <div
+                class="d-flex justify-content-between align-items-center swiper-slide h-100"
+              >
+                <div
+                  class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
+                >
+                  <p class="position-relative slider-heading">
+                    Professional Advisory: Protecting Health
+
+                    <img src="assets/img/arrow.png" alt="" />
+                  </p>
+
+                  <p class="desc">Get special 10% discount this December</p>
+                </div>
+
+                <div class="h-100 doctor-img-area position-relative">
+                  <img
+                    class="h-100 doctor-img"
+                    src="assets/img/upcoming-slider-img-1.png"
+                    alt=""
+                  />
+
+                  <img
+                    src="assets/img/doctor_img_bg.png"
+                    class="background-img"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center swiper-slide h-100"
+              >
+                <div
+                  class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
+                >
+                  <p class="position-relative slider-heading">
+                    Consult with specialists, Prevent you
+
+                    <img src="assets/img/arrow.png" alt="" />
+                  </p>
+
+                  <p class="desc">Get special 10% discount this December</p>
+                </div>
+
+                <div class="h-100 doctor-img-area position-relative">
+                  <img
+                    class="h-100 doctor-img"
+                    src="assets/img/upcoming-slider-img-2.png"
+                    alt=""
+                  />
+
+                  <img
+                    src="assets/img/doctor_img_bg.png"
+                    class="background-img"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center swiper-slide h-100"
+              >
+                <div
+                  class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
+                >
+                  <p class="position-relative slider-heading">
+                    Specialist Guidance: Shield Your Health
+
+                    <img src="assets/img/arrow.png" alt="" />
+                  </p>
+
+                  <p class="desc">Get special 10% discount this December</p>
+                </div>
+
+                <div class="h-100 doctor-img-area position-relative">
+                  <img
+                    class="h-100 doctor-img"
+                    src="assets/img/upcoming-slider-img-3.png"
+                    alt=""
+                  />
+
+                  <img
+                    src="assets/img/doctor_img_bg.png"
+                    class="background-img"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <div
+                class="d-flex justify-content-between align-items-center swiper-slide h-100"
+              >
+                <div
+                  class="slider-desc d-flex flex-column justify-content-between align-items-start h-100"
+                >
+                  <p class="position-relative slider-heading">
+                    Safe guarding Your Well-being
+
+                    <img src="assets/img/arrow.png" alt="" />
+                  </p>
+
+                  <p class="desc">Get special 10% discount this December</p>
+                </div>
+
+                <div class="h-100 doctor-img-area position-relative">
+                  <img
+                    class="h-100 doctor-img"
+                    src="assets/img/upcoming-slider-img-4.png"
+                    alt=""
+                  />
+
+                  <img
+                    src="assets/img/doctor_img_bg.png"
+                    class="background-img"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="swiper-pagination"></div>
+          </div>
+        </div>
+      </section>
+      <!-- Upcoming Schedule End -->
+
+      <!-- Doctor Specialist Start -->
+      <section class="px-6 pt-6 doctor-specialist-area">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>Doctor Speciality</h3>
+          <button id="specialityModalOpenButton" class="view-all">
+            View All
+          </button>
+        </div>
+
+        <div class="swiper doctor-speciality-slider pt-5">
+          <div class="swiper-wrapper">
+            <div
+              class="swiper-slide d-flex justify-content-start align-items-center gap-3 p-3"
+            >
+              <div class="flex-center p-3 speciality-logo">
+                <i class="ph-fill ph-eye"></i>
+              </div>
+              <div class="desc">
+                <p class="fw-bold pb-1">Ophthalmologist</p>
+                <p
+                  class="d-inline-flex justify-content-center align-items-center gap-2"
+                >
+                  213 doctors <i class="ph ph-arrow-right fs-5"></i>
+                </p>
+              </div>
+            </div>
+            <div
+              class="swiper-slide d-flex justify-content-start align-items-center gap-3 p-3"
+            >
+              <div class="flex-center p-3 speciality-logo">
+                <i class="ph-fill ph-brain"></i>
+              </div>
+              <div class="desc">
+                <p class="fw-bold pb-1">Neurologist</p>
+                <p
+                  class="d-inline-flex justify-content-center align-items-center gap-2"
+                >
+                  210 doctors <i class="ph ph-arrow-right fs-5"></i>
+                </p>
+              </div>
+            </div>
+            <div
+              class="swiper-slide d-flex justify-content-start align-items-center gap-3 p-3"
+            >
+              <div class="flex-center p-3 speciality-logo">
+                <i class="ph-fill ph-person-simple-bike"></i>
+              </div>
+              <div class="desc">
+                <p class="fw-bold pb-1">Physicial</p>
+                <p
+                  class="d-inline-flex justify-content-center align-items-center gap-2"
+                >
+                  283 doctors <i class="ph ph-arrow-right fs-5"></i>
+                </p>
+              </div>
+            </div>
+            <div
+              class="swiper-slide d-flex justify-content-start align-items-center gap-3 p-3"
+            >
+              <div class="flex-center p-3 speciality-logo">
+                <i class="ph-fill ph-eye"></i>
+              </div>
+              <div class="desc">
+                <p class="fw-bold pb-1">Ophthalmologist</p>
+                <p
+                  class="d-inline-flex justify-content-center align-items-center gap-2"
+                >
+                  213 doctors <i class="ph ph-arrow-right fs-5"></i>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Doctor Specialist End -->
+
+      <!-- Top Doctor Start -->
+      <section class="px-6 pt-6 top-doctor-area">
+        <div class="d-flex justify-content-between align-items-center">
+          <h3>Top Doctor</h3>
+          <button class="view-all" id="topDoctorModalOpenButton">
+            View All
+          </button>
+        </div>
+
+        <div class="d-flex flex-column gap-4 pt-4">
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-1.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Marvin McKinney</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Cardiologist</span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">JFK Medical</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.9
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$34</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-2.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Dianne Russell</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Urology</span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">Christ Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.8
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$40</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-3.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Savannah Nguyen</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Psychiatrist</span>
+                    <i class="ph ph-dot"></i>
+                    <span class="work-place">Cefixime Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.2
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$46</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-4.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Marvin McKinney</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Cardiologist </span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">Franklin Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.7
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$52</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-1.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Marvin McKinney</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Cardiologist</span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">JFK Medical</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.9
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$34</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-2.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Dianne Russell</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Urology</span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">Christ Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.8
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$40</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-2">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-3.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Savannah Nguyen</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Psychiatrist</span>
+                    <i class="ph ph-dot"></i>
+                    <span class="work-place">Cefixime Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.2
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$46</p>
+            </div>
+          </div>
+          <div class="w-100 top-doctor-item p-4">
+            <div class="d-flex justify-content-between align-items-start gap-4">
+              <div class="d-flex justify-content-start align-items-start gap-4">
+                <div class="doctor-img flex-center">
+                  <img
+                    src="assets/img/top-doctor-4.png"
+                    class="h-100"
+                    alt=""
+                  />
+                  <img src="assets/img/active.png" class="active" alt="" />
+                </div>
+                <div class="">
+                  <p class="fw-bold name">Dr. Marvin McKinney</p>
+                  <p
+                    class="d-inline-flex justify-content-start align-items-center py-2 flex-wrap"
+                  >
+                    <span class="category">Cardiologist </span>
+                    <i class="ph ph-dot fs-4"></i>
+                    <span class="work-place">Franklin Hospital</span>
+                  </p>
+                  <div
+                    class="d-flex justify-content-start align-items-center flex-wrap"
+                  >
+                    <div class="rating">
+                      <i class="ph-fill ph-star"></i>
+                      4.7
+                    </div>
+                    <i class="ph ph-dot fs-2"></i>
+                    <div class="time">
+                      <i class="ph-fill ph-clock"></i>12pm-5pm
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button class="p-2 flex-center favourite-button doctorFavourite">
+                <i class="ph ph-heart-straight fs-5 p1-color"></i>
+              </button>
+            </div>
+            <div class="d-flex justify-content-between align-items-center pt-4">
+              <a
+                href="doctor-profile.html"
+                class="appointment-link d-block p1-color"
+                >Appointment</a
+              >
+              <div class="custom-border-area position-relative mx-3">
+                <div class="line-horizontal"></div>
+              </div>
+              <p class="fs-5 fw-bold">$52</p>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- Top Doctor End -->
