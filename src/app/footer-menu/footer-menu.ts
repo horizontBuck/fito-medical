@@ -20,7 +20,7 @@ showHeader: boolean = true;
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
-      this.showHeader = !event.url.includes('detail-profesional');
+      this.showHeader = !event.url.includes('detail-profesional') && !event.url.includes('login') && !event.url.includes('register');
     });
   }
 }

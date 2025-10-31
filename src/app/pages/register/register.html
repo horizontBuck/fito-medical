@@ -1,0 +1,177 @@
+<!-- HEADER / BACK BUTTON -->
+<section class="py-8 doctor-profle-img" style="background-color: #fff;">
+  <div class="position-relative flex-center w-100">
+    <div class="position-absolute top-icon w-100">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <a routerLink="/" class="back-button flex-center">
+          <i class="ph ph-caret-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN SECTION -->
+<section class="sign-in-area" [formGroup]="form">
+
+  <!-- PASO 1: TIPO DE CUENTA -->
+  <div *ngIf="currentStep === 1">
+    <h2 class="heading-2 text-center">¿Quién se va a registrar?</h2>
+    <p class="paragraph-small text-center pt-3">
+      Elige tu tipo de cuenta para continuar.
+    </p>
+
+    <div class="role-grid mt-4" role="radiogroup">
+      <!-- PACIENTE -->
+      <label class="role-card"
+             tabindex="0"
+             [class.active]="selectedAccountType === 'cliente'"
+             (click)="setAccountType('cliente')">
+        <input type="radio" formControlName="accountType" value="cliente" hidden />
+        <img src="assets/img/paciente.png" alt="Paciente" />
+        <h3>Paciente</h3>
+        <p>Agenda consultas presenciales o virtuales.</p>
+      </label>
+
+      <!-- PROFESIONAL -->
+      <label class="role-card"
+             tabindex="0"
+             [class.active]="selectedAccountType === 'proveedor'"
+             (click)="setAccountType('proveedor')">
+        <input type="radio" formControlName="accountType" value="proveedor" hidden />
+        <img src="assets/img/profesionales.png" alt="Profesional" />
+        <h3>Profesional</h3>
+        <p>Publica servicios y gestiona tus pacientes.</p>
+      </label>
+    </div>
+
+    <div class="mt-5">
+      <button class="link-button d-block"  type="button" (click)="next()">Continuar</button>
+    </div>
+
+    <div class="text-center mt-4">
+      <span>¿Tienes cuenta?
+        <a routerLink="/login" style="cursor:pointer;">Inicia sesión</a>
+      </span>
+    </div>
+  </div>
+
+  <!-- PASO 2: DATOS -->
+  <div *ngIf="currentStep === 2" class="fade-step">
+    <h2 class="heading-2 text-center">
+      {{ selectedAccountType === 'cliente' ? 'Crear cuenta de paciente' : 'Crear cuenta profesional' }}
+    </h2>
+
+    <div class="input-field-area d-flex flex-column gap-4 mt-4">
+      <div class="input-field-item">
+        <p>Nombre completo</p>
+        <div class="input-field">
+          <input type="text" placeholder="Ej: Ana Pérez" formControlName="name" />
+        </div>
+      </div>
+
+      <div class="input-field-item">
+        <p>Correo</p>
+        <div class="input-field">
+          <input type="email" placeholder="tu@correo.com" formControlName="email" />
+        </div>
+      </div>
+
+      <div class="input-field-item">
+        <p>RUT</p>
+        <div class="input-field">
+          <input type="text" placeholder="Ej: 12.345.678-9" formControlName="rut" />
+        </div>
+      </div>
+
+      <div class="input-field-item">
+        <p>Teléfono</p>
+        <div class="input-field">
+          <input type="tel" placeholder="+56 9 1234 5678" formControlName="phone" />
+        </div>
+      </div>
+
+      <!-- Solo proveedor -->
+      <div class="input-field-item" *ngIf="selectedAccountType === 'proveedor'">
+        <p>Nombre del consultorio / empresa</p>
+        <div class="input-field">
+          <input type="text" placeholder="Ej: Clínica Bienestar" formControlName="companyName" />
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex gap-3 mt-5">
+      <button class="btn gray-btn w-50" type="button" (click)="back()">Atrás</button>
+      <button class="btn theme-btn w-50" type="button" (click)="next()">Continuar</button>
+    </div>
+  </div>
+
+  <!-- PASO 3: TÉRMINOS + SELFIE -->
+  <div *ngIf="currentStep === 3" class="fade-step">
+    <h2 class="heading-2 text-center">Términos y confirmación</h2>
+
+    <!-- SELFIE -->
+    <div class="input-field-item mt-4">
+      <p>Foto de perfil (selfie)</p>
+      <div class="d-flex align-items-center gap-3">
+        <div class="rounded-circle border overflow-hidden" style="width:80px;height:80px;">
+          <img *ngIf="avatarPreview; else noAvatar"
+               [src]="avatarPreview"
+               style="width:100%;height:100%;object-fit:cover;" />
+          <ng-template #noAvatar>
+            <div class="text-muted text-center" style="font-size:0.75rem;padding-top:25px;">Sin foto</div>
+          </ng-template>
+        </div>
+
+        <div class="flex-fill">
+          <input type="file" accept="image/*" capture="user" (change)="onAvatarSelected($event)" class="form-control" />
+          <small class="text-muted d-block mt-1">Formatos: JPG/PNG. Máx {{ AVATAR_MAX_MB }}MB.</small>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASSWORD -->
+    <div class="input-field-item mt-4">
+      <p>Contraseña</p>
+      <div class="d-flex justify-content-between align-items-center input-field">
+        <input [type]="showPwd ? 'text' : 'password'"
+               placeholder="Mínimo 8 caracteres"
+               formControlName="password" />
+        <i class="ph" [ngClass]="showPwd ? 'ph-eye' : 'ph-eye-closed'" (click)="showPwd = !showPwd"></i>
+      </div>
+    </div>
+
+    <!-- CONFIRM PASSWORD -->
+    <div class="input-field-item">
+      <p>Confirmar contraseña</p>
+      <div class="d-flex justify-content-between align-items-center input-field">
+        <input [type]="showPwd ? 'text' : 'password'" placeholder="Repite la contraseña"
+               formControlName="confirmPassword" />
+      </div>
+    </div>
+
+    <!-- TÉRMINOS -->
+    <div class="mt-3">
+      <label class="checkbox style-c">
+        <input type="checkbox" formControlName="agree" />
+        <span class="checkbox__checkmark"></span>
+        <span class="checkbox__body">
+          Acepto los <a href="/terms" target="_blank">términos</a> y la
+          <a href="/privacy" target="_blank">política de privacidad</a>.
+        </span>
+      </label>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="d-flex gap-3 mt-5">
+      <button class="btn gray-btn w-50" type="button" (click)="back()">Atrás</button>
+      <button class="btn theme-btn w-50" type="button" (click)="submit()" [disabled]="loading">
+        {{ loading ? 'Creando...' : 'Crear cuenta' }}
+      </button>
+    </div>
+
+    <!-- ESTADOS -->
+    <div *ngIf="errorMsg" class="alert alert-danger mt-3">{{ errorMsg }}</div>
+    <div *ngIf="okMsg" class="alert alert-success mt-3">{{ okMsg }}</div>
+  </div>
+</section>

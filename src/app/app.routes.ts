@@ -1,6 +1,8 @@
 import { Routes } from '@angular/router';
 import { Home } from './pages/home/home';
 import { DetailProfesional } from './pages/detail-profesional/detail-profesional';
+import { Login } from './pages/login/login';
+import { Register } from './pages/register/register';
 
 export const routes: Routes = [
          {
@@ -20,6 +22,24 @@ export const routes: Routes = [
     data: {
       description: 'Detalle de profesional en fito',
       canonical: '/detail-profesional',
+    },
+  },
+  {
+    path: 'login',
+    component: Login,
+    title: 'fito | Iniciar sesión',
+    data: {
+      description: 'Iniciar sesión en fito',
+      canonical: '/login',
+    },
+  },
+  {
+    path: 'register',
+    component: Register,
+    title: 'fito | Registrarse',
+    data: {
+      description: 'Registrarse en fito',
+      canonical: '/register',
     },
   },
 ];

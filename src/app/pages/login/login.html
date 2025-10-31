@@ -1,0 +1,92 @@
+<section class="py-8 doctor-profle-img" style="background-color: #fff;">
+  <div class="position-relative flex-center w-100">
+    <div class="position-absolute top-icon w-100">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <a routerLink="/" class="back-button flex-center">
+          <i class="ph ph-caret-left"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sign-in-area">
+  <h2 class="heading-2">Iniciar sesión</h2>
+  <p class="paragraph-small pt-3">
+    Accede a tu cuenta de forma segura. Inicia sesión para gestionar tu experiencia personalizada.
+  </p>
+
+  <form [formGroup]="form" (ngSubmit)="login()" class="input-field-area d-flex flex-column gap-4">
+    <!-- Error message -->
+    <div *ngIf="errorMsg" class="alert alert-danger">
+      {{ errorMsg }}
+    </div>
+
+    <div class="input-field-item">
+      <p>Correo</p>
+      <div class="input-field" [class.error]="form.get('email')?.invalid && form.get('email')?.touched">
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="Email"
+          [class.is-invalid]="form.get('email')?.invalid && form.get('email')?.touched"
+        />
+        <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="invalid-feedback">
+          <div *ngIf="form.get('email')?.errors?.['required']">El correo es requerido</div>
+          <div *ngIf="form.get('email')?.errors?.['email']">Por favor ingresa un correo válido</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input-field-item">
+      <p>Contraseña</p>
+      <div class="input-field" [class.error]="form.get('password')?.invalid && form.get('password')?.touched">
+        <div class="d-flex justify-content-between align-items-center">
+          <input 
+            [type]="showPwd ? 'text' : 'password'" 
+            formControlName="password" 
+            placeholder="******"
+            [class.is-invalid]="form.get('password')?.invalid && form.get('password')?.touched"
+          />
+          <i 
+            class="ph" 
+            [class.ph-eye]="showPwd" 
+            [class.ph-eye-closed]="!showPwd"
+            (click)="showPwd = !showPwd"
+            style="cursor: pointer;"
+          ></i>
+        </div>
+        <div *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="invalid-feedback">
+          <div *ngIf="form.get('password')?.errors?.['required']">La contraseña es requerida</div>
+          <div *ngIf="form.get('password')?.errors?.['minlength']">
+            La contraseña debe tener al menos 6 caracteres
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-column gap-8">
+      <a routerLink="/forgot-password" class="d-block text-end fw-semibold">
+        ¿Olvidaste tu contraseña?
+      </a>
+
+      <button 
+        type="submit" 
+        class="link-button d-block" 
+        [disabled]="loading || form.invalid"
+      >
+        <span *ngIf="!loading">Iniciar sesión</span>
+        <span *ngIf="loading">Cargando...</span>
+      </button>
+    </div>
+
+    <div class="position-relative continue-with">
+      <img src="assets/img/line.png" class="line-left position-absolute" alt="" />
+      <img src="assets/img/line.png" class="line-right position-absolute" alt="" />
+    </div>
+
+    <div class="sign-in-up m-body">
+      No tienes una cuenta? <a [routerLink]="['/register']">Registrate</a> aqui
+    </div>
+  </form>
+</section>
