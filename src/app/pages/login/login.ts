@@ -28,26 +28,39 @@ constructor(private router: Router,
   }
 
   async login() {
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
-
-    this.loading = true;
-    this.errorMsg = '';
-
-    try {
-      const { email, password } = this.form.value;
-
-      // Login con PocketBase
-      await this.auth.login(email, password);
-
-      // Redirigir a offers
-      this.router.navigate(['/']);
-    } catch (err: any) {
-      this.errorMsg = err?.message || 'Error al iniciar sesión';
-    } finally {
-      this.loading = false;
-    }
+  if (this.form.invalid) {
+    this.form.markAllAsTouched();
+    return;
   }
+
+  this.loading = true;
+  this.errorMsg = '';
+
+  try {
+    const { email, password } = this.form.value;
+    await this.auth.login(email, password);
+
+    const user = this.auth.currentUser;
+    if (!user) throw new Error('No se pudo obtener el usuario.');
+
+    // === Redirección según rol ===
+    if (user['role'] === 'cliente') {
+      this.router.navigate(['/profile/patient/detail']);
+    } else if (user['role'] === 'proveedor') {
+      if (user['providerStatus'] === 'pending') {
+        this.router.navigate(['/profile/professional/settings']);
+      } else {
+        this.router.navigate(['/profile/professional/detail']);
+      }
+    } else {
+      this.router.navigate(['/']);
+    }
+
+  } catch (err: any) {
+    this.errorMsg = err?.message || 'Error al iniciar sesión';
+  } finally {
+    this.loading = false;
+  }
+}
+
 }

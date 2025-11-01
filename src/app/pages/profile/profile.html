@@ -1,0 +1,16 @@
+<section *ngIf="showHeader" class="py-8 doctor-profle-img" style="background-color: #fff;">
+  <div class="position-relative flex-center w-100">
+    <div class="position-absolute top-icon w-100">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <a routerLink="/" class="back-button flex-center">
+          <i class="ph ph-caret-left"></i>
+        </a>
+        <h2 class="m-0">Mi Perfil</h2>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="profile-content">
+  <router-outlet></router-outlet>
+</main>

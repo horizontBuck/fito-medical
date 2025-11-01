@@ -13,9 +13,12 @@
             <a routerLink="/" class="flex-center"
               ><i class="ph ph-messenger-logo link-item"></i
             ></a>
-            <a routerLink="/login" class="flex-center"
-              ><i class="ph ph-user link-item"></i
-            ></a>
+            <a
+              [routerLink]="isLoggedIn ? profileRoute() : '/login'"
+              class="flex-center"
+            >
+              <i class="ph ph-user link-item"></i>
+            </a>
           </div>
 
           <div class="plus-icon position-absolute">

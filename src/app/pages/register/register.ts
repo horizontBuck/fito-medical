@@ -6,6 +6,8 @@ import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EmailService } from '../../services/email.service';
 import { Validators } from '@angular/forms';
+import Swal from 'sweetalert2';
+
 type type = 'cliente' | 'proveedor';
 
 @Component({
@@ -191,10 +193,15 @@ const user = await this.auth.register(dto, avatarFile);
 
       // (Opcional) Email de bienvenida
       // await firstValueFrom(this.emailService.sendWelcome({...}));
-
-      this.router.navigate(['/']);
-
-      this.okMsg = this.selectedAccountType === 'proveedor'
+    Swal.fire({
+      title: '¡Cuenta creada con éxito!',
+      icon: 'success',
+      timer: 2000,  // Cierra automáticamente después de 2 segundos
+      showConfirmButton: true
+    }).then(() => {
+      this.router.navigate(['/profile']);
+    });
+   this.okMsg = this.selectedAccountType === 'proveedor'
         ? 'Cuenta creada. Tu perfil profesional está pendiente de aprobación.'
         : '¡Cuenta creada con éxito!';
     } catch (e: any) {

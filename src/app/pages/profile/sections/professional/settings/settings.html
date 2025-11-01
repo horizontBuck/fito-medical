@@ -1,0 +1,119 @@
+
+
+      <section class="settings-area px-6 pt-6">
+        <div
+          class="profile-info d-flex justify-content-between align-items-center"
+        >
+          <div class="d-flex justify-content-start align-items-center gap-4">
+            <div class="">
+              <img src="assets/img/profile-settings-img.png" alt="" />
+            </div>
+            <div class="">
+              <h3 class="heading-3 text-white">{{ user?.name || 'Usuario' }}</h3>
+              <p class="text-white pt-2 fw-light">{{ user?.phone || 'Usuario' }}</p>
+            </div>
+          </div>
+          <a  class="edit-icon flex-center" (click)="editProfile()">
+            <i class="ph ph-pencil-simple-line"></i>
+            <!-- <h6>Editar</h6> -->
+          </a>
+        </div>
+
+        <div class="pt-8 d-flex flex-column gap-6">
+          <!-- <a
+           
+            class="d-flex justify-content-between align-items-center setting-item text-dark"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-bell setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Notification</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </a> -->
+          <a
+            class="d-flex justify-content-between align-items-center setting-item text-dark"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-cardholder setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Medios de pago</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </a>
+          <a
+            class="d-flex justify-content-between align-items-center setting-item text-dark"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-shield-check setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Servicios</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </a>
+         <!--  <a
+            href="language-setting.html"
+            class="d-flex justify-content-between align-items-center setting-item text-dark"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-translate setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Language</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </a> -->
+          <!-- <div
+            class="d-flex justify-content-between align-items-center setting-item"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-eye setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Dark Mode</p>
+            </div>
+            <div class="switch">
+              <input id="switch-rounded" type="checkbox" />
+              <label for="switch-rounded"></label>
+            </div>
+          </div> -->
+          <a
+            class="d-flex justify-content-between align-items-center setting-item text-dark"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-headset setting-icon"></i>
+              </div>
+              <p class="fs-5 fw-semibold">Centro de SOPORTE</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </a>
+
+          <div
+            class="logoutModalButton d-flex justify-content-between align-items-center setting-item"
+          >
+            <div class="d-flex justify-content-start align-items-center gap-4">
+              <div class="flex-center">
+                <i class="ph ph-users-three setting-icon logout"></i>
+              </div>
+              <p class="fs-5 fw-semibold logout-text">Cerrar sesión</p>
+            </div>
+            <div class="chevron_icon">
+              <i class="ph ph-caret-right"></i>
+            </div>
+          </div>
+        </div>
+      </section>

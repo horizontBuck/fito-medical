@@ -2,7 +2,8 @@ import { Component, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { ScriptLoader } from './services/script-loader';
 import { Header } from './components/header/header';
-import { FooterMenu } from './footer-menu/footer-menu';
+import { FooterMenu } from './components/footer-menu/footer-menu';
+import { AuthPocketbaseService } from './services/auth-pocketbase.service';
 
 @Component({
   selector: 'app-root',
@@ -15,8 +16,16 @@ import { FooterMenu } from './footer-menu/footer-menu';
 })
 export class App {
   protected readonly title = signal('fito');
-    constructor(public scriptLoader: ScriptLoader, private router: Router) { }
+  isLoggedIn = false;
+  userRole: string | null = null;
 
+    constructor(public scriptLoader: ScriptLoader, private router: Router, private auth: AuthPocketbaseService) { }
+async ngOnInit() {
+    // refresca si existe sesión válida en cookie
+    const valid = await this.auth.initSession();
+    this.isLoggedIn = valid;
+    this.userRole = this.auth.currentUser?.['role'] ?? null;
+  }
 navigateTo(route: string) {
   this.router.navigate([route]);
 }

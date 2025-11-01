@@ -174,7 +174,7 @@ button {
 
 input,
 textarea {
-  color: rgba(var(--n2), 1);
+  color: #000000cc;
   width: 100%;
   font-family: var(--body-font);
   outline-color: transparent;
