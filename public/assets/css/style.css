@@ -210,7 +210,7 @@ textarea:focus {
   --transition: all 0.5s ease-in-out;
   --p1: /* rgba(0, 146, 129, 1); */ #0fa49e;
   --n1: /* rgba(14, 13, 57, 1); */ #ec4e81;
-  --n2: rgba(69, 69, 103, 1);
+  --n2: /* rgba(69, 69, 103, 1); */ rgb(39, 39, 80);
   --n40: rgba(224, 224, 229, 1);
   --white: #ffff;
   --secodayBg2: rgba(150, 210, 203, 1);

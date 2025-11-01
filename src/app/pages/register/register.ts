@@ -6,7 +6,7 @@ import { AuthPocketbaseService } from '../../services/auth-pocketbase.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { EmailService } from '../../services/email.service';
 import { Validators } from '@angular/forms';
-type AccountType = 'cliente' | 'proveedor';
+type type = 'cliente' | 'proveedor';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class Register {
 /** Pasos: 1=Tipo, 2=Datos, 3=Términos+Selfie */
   currentStep: 1 | 2 | 3 = 1;
 
-  selectedAccountType: AccountType = 'cliente';
+  selectedAccountType: type = 'cliente';
 
   loading = false;
   errorMsg = '';
@@ -66,7 +66,7 @@ export class Register {
     return p && c && p !== c ? { passwordMismatch: true } : null;
   }
 
-  setAccountType(type: AccountType) {
+  setAccountType(type: type) {
     this.selectedAccountType = type;
     this.form.get('accountType')!.setValue(type);
     this.applyCompanyValidators();
@@ -173,7 +173,7 @@ const dto = {
   password: this.form.value.password,
   passwordConfirm: this.form.value.confirmPassword,
   agree: this.form.value.agree,
-  accountType: this.form.value.accountType as AccountType,
+  type: this.form.value.accountType,
   businessName: this.selectedAccountType === 'proveedor'
     ? (this.form.value.companyName || '').trim()
     : undefined,

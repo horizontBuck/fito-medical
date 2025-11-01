@@ -12,11 +12,11 @@ export interface RegisterDto {
   password: string;
   passwordConfirm: string;
   agree: boolean;
-  accountType: 'cliente' | 'proveedor';
+  type: 'cliente' | 'proveedor';
   businessName?: string; 
   rut: string;
   phone: string;
-  
+  avatarFile?: File;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -96,54 +96,48 @@ export class AuthPocketbaseService {
    * Registrar cliente o proveedor, con soporte de avatar (selfie).
    * Si PB tiene "Only verified users can auth" activado, la autenticación posterior podría fallar hasta verificar email.
    */
-  async register(dto: RegisterDto, avatarFile?: File): Promise<RecordModel> {
-    if (!dto.agree) throw new Error('Debes aceptar los Términos y Condiciones.');
-    if (dto.password !== dto.passwordConfirm) throw new Error('Las contraseñas no coinciden.');
-    if (dto.password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
-  
-    const role: Role = dto.accountType === 'proveedor' ? 'proveedor' : 'cliente';
-    if (role === 'proveedor' && !dto.businessName) {
-      throw new Error('Para registrarte como proveedor, ingresa el nombre comercial.');
-    }
-  
-    const username = this.buildUsername(dto.email, dto.name);
-  
-    // 👉 Usa FormData para poder enviar avatar en el mismo paso si viene
-    const form = new FormData();
-    form.append('username', username);
-    form.append('name', dto.name);
-    form.append('email', dto.email);
-    form.append('emailVisibility', 'true');
-    form.append('password', dto.password);
-    form.append('passwordConfirm', dto.passwordConfirm);
-    form.append('role', role);
-    form.append('termsAccepted', 'true');
-  
-    // 👇 Campos que faltaban
-    form.append('rut', dto.rut);
-    form.append('phone', dto.phone);
-  
-    if (role === 'proveedor') {
-      form.append('providerStatus', 'pending');
-      if (dto.businessName) form.append('businessName', dto.businessName);
-    }
-  
-    if (avatarFile) {
-      form.append('avatarFile', avatarFile);
-    }
-  
-    try {
-      const record = await this.pb.collection('users').create(form); // create con FormData
-  
-      // Autologin (no crítico si tienes verificación de email)
-      try { await this.pb.collection('users').authWithPassword(dto.email, dto.password); } catch {}
-  
-      // Refresca el modelo
-      return (await this.pb.collection('users').getOne(record.id)) as RecordModel;
-    } catch (err) {
-      throw this.mapPocketbaseError(err);
-    }
+ async register(dto: RegisterDto, avatarFile?: File): Promise<RecordModel> {
+  if (!dto.agree) throw new Error('Debes aceptar los Términos y Condiciones.');
+  if (dto.password !== dto.passwordConfirm) throw new Error('Las contraseñas no coinciden.');
+  if (dto.password.length < 8) throw new Error('La contraseña debe tener al menos 8 caracteres.');
+
+  const username = this.buildUsername(dto.email, dto.name);
+  const form = new FormData();
+
+  form.append('username', username);
+  form.append('name', dto.name);
+  form.append('email', dto.email);
+  form.append('emailVisibility', 'true');
+  form.append('password', dto.password);
+  form.append('passwordConfirm', dto.passwordConfirm);
+  form.append('role', dto.type);
+  form.append('termsAccepted', 'true');
+  form.append('rut', dto.rut);
+  form.append('phone', dto.phone);
+
+  if (dto.type === 'proveedor') {
+    form.append('providerStatus', 'pending');
+    if (dto.businessName) form.append('businessName', dto.businessName);
   }
+
+  if (avatarFile) {
+    console.log('🖼️ avatarFile info:', avatarFile.name, avatarFile.type, avatarFile.size);
+    form.append('avatarFile', avatarFile, avatarFile.name);
+  }
+
+  for (const [k, v] of form.entries()) console.log(`📦 ${k}:`, v);
+
+  try {
+    const record = await this.pb.collection('users').create(form);
+    try { await this.pb.collection('users').authWithPassword(dto.email, dto.password); } catch {}
+    return await this.pb.collection('users').getOne(record.id);
+  } catch (err: any) {
+    console.error('❌ PocketBase raw error:', err);
+    console.error('❌ PocketBase data error:', err?.data);
+    throw this.mapPocketbaseError(err);
+  }
+}
+
 
   
 
