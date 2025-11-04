@@ -1,0 +1,81 @@
+.doctor-specialist-area {
+  .speciality-logo {
+    background: #f4f5f7;
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  i.ph-fill {
+    font-size: 2rem;
+    color: #2e7d32;
+  }
+
+  img {
+    object-fit: cover;
+  }
+
+  .spin {
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}
+/* Asegúrate de que estos estilos estén en tu CSS */
+.top-doctor-area {
+  width: 100%;
+  overflow: visible;
+  padding-bottom: 95px;
+}
+
+.top-doctor-item {
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1rem;
+}
+
+/* Ajusta el padding del ion-content si es necesario */
+ion-content {
+  --padding-start: 0;
+  --padding-end: 0;
+  --padding-top: 0;
+  --padding-bottom: 0;
+}
+.main-content {
+  padding-bottom: 100px; /* Altura del footer + espacio extra */
+}
+.verified-badge {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(25%, 25%);
+  background: #0d6efd; /* azul estilo "verificado" */
+  color: white;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid #fff;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+
+  i {
+    font-size: 12px;
+    line-height: 1;
+  }
+}
+
+.doctor-img {
+  position: relative;
+  display: inline-flex;
+}

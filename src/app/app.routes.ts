@@ -10,6 +10,7 @@ import { Professional } from './pages/profile/sections/professional/professional
 import { Patient } from './pages/profile/sections/patient/patient';
 import { ProfileDetailPatient } from './pages/profile/sections/patient/profile-detail-patient/profile-detail-patient';
 import { ProfileEdit } from './pages/profile/sections/professional/profile-edit/profile-edit';
+import { ProfileEditProfessional } from './pages/profile/sections/professional/profile-edit-professional/profile-edit-professional';
 
 export const routes: Routes = [
          {
@@ -22,8 +23,9 @@ export const routes: Routes = [
     },
 
   },
+  
   {
-    path: 'detail-profesional',
+    path: 'detail-profesional/:id',
     component: DetailProfesional,
     title: 'fito | Detalle de profesional',
     data: {
@@ -91,6 +93,7 @@ export const routes: Routes = [
           { path: 'detail', component: ProfileDetail },
           { path: 'settings', component: Settings },
           { path: 'edit', component: ProfileEdit }, 
+          { path: 'edit-professional', component: ProfileEditProfessional },
         ],
       },
       {

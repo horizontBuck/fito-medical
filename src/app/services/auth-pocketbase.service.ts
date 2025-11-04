@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import PocketBase, { RecordModel } from 'pocketbase';
 import { Router } from '@angular/router';
-
+import { BehaviorSubject } from 'rxjs';
 const PB_URL = 'https://db.colombiatoursyexperiencias.online:8559';
 
 export type Role = 'cliente' | 'proveedor' ;
@@ -22,6 +22,7 @@ export interface RegisterDto {
 @Injectable({ providedIn: 'root' })
 export class AuthPocketbaseService {
   public pb = new PocketBase(PB_URL);
+    currentUser$ = new BehaviorSubject<any>(null);
 
   // Claves de almacenamiento
   private STORAGE_KEY = 'pb_auth_cookie';
@@ -49,8 +50,15 @@ export class AuthPocketbaseService {
         localStorage.removeItem(this.STORAGE_KEY);
       }
     });
+    // Listen to auth changes
+    this.pb.authStore.onChange(() => {
+      this.loadUser();
+    });
   }
-
+ private loadUser() {
+    const user = this.pb.authStore.model;
+    this.currentUser$.next(user ? { ...user } : null);
+  }
   /** ¿Hay sesión válida? */
   get isLoggedIn(): boolean {
     return this.pb.authStore.isValid;

@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ProfileService } from '../../../../../services/profile.service';
 import { Router } from '@angular/router';
-
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-profile-edit',
   standalone: true,
@@ -53,11 +53,23 @@ export class ProfileEdit implements OnInit {
       
       // The updateProfile method now updates the BehaviorSubject with the latest data
       await this.profileService.updateProfile(userToUpdate);
+      Swal.fire({
+        title: '¡Perfil actualizado con éxito!',
+        icon: 'success',
+        timer: 2000,  // Cierra automáticamente después de 2 segundos
+        showConfirmButton: true
+      }).then(() => {
+         this.goBack();
+      });
       // No need to manually update anything else, the BehaviorSubject will handle it
-      this.goBack(); // Go back to profile on success
     } catch (error) {
       console.error('Error updating profile:', error);
-      // You might want to show an error message to the user here
+      Swal.fire({
+        title: 'Error al actualizar el perfil',
+        icon: 'error',
+        timer: 2000,  // Cierra automáticamente después de 2 segundos
+        showConfirmButton: true
+      });
     } finally {
       this.isSaving = false;
     }

@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+/* Agrega esto a tu archivo de estilos */
+ion-content {
+  --padding-bottom: 80px; /* Ajusta según necesites */
+}
+
+/* O si usas un contenedor principal */
+.main-container {
+  min-height: 100vh;
+  padding-bottom: 80px; /* Espacio para el footer si lo tienes */
+}

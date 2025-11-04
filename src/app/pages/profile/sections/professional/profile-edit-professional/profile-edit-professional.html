@@ -1,0 +1,116 @@
+      <section class="px-6 pt-8 notification-top-area">
+        <div class="d-flex justify-content-start align-items-center gap-4 py-3">
+          <a (click)="goBack()"
+            class="p1-color back-button flex-center"
+          >
+            <i class="ph ph-caret-left"></i>
+          </a>
+          <h2>Edita tu perfil (datos profesionales)</h2>
+        </div>
+      </section>
+      <section class="sign-in-area">
+        <form (ngSubmit)="saveProfile()" class="input-field-area d-flex flex-column gap-4">
+          <div class="input-field-item">
+            <p>Profesión</p>
+            <div class="input-field">
+              <input type="text" [(ngModel)]="user.profession" name="profession" placeholder="Ingrese su profesión" required />
+            </div>
+          </div>
+          <div class="input-field-item">
+            <p>Especialidad</p>
+            <div class="input-field">
+                <select 
+                class="form-select" 
+                [(ngModel)]="selectedCategory" 
+                name="category"
+                (change)="onCategoryChange()"
+                required>
+                <option value="" disabled selected>Seleccione una categoría</option>
+                <option *ngFor="let category of categories" [value]="category.id">
+                    {{ category.name }}
+                </option>
+                </select>
+
+                <div *ngIf="selectedCategory" class="mt-3">
+                <select 
+                    class="form-select" 
+                    [(ngModel)]="selectedSubcategory" 
+                    name="subcategory"
+                    (change)="onSubcategoryChange()"
+                    required>
+                    <option value="" disabled selected>Seleccione una subcategoría</option>
+                    <option *ngFor="let sub of getCurrentSubcategories()" 
+        [value]="sub.id || sub">
+  {{ sub.name || sub }}
+</option>
+                </select>
+                </div>
+            </div>
+            </div>
+          <div class="input-field-item">
+            <p>Nombre del consultorio</p>
+            <div class="input-field">
+              <input type="text" [(ngModel)]="user.businessName" name="businessName" placeholder="Ingrese su nombre" required />
+            </div>
+          </div>
+         <div class="input-field-item">
+            <p>Dirección del consultorio</p>
+            <div class="input-field">
+              <input type="text" [(ngModel)]="user.businessAddress" name="address" placeholder="Ingrese su dirección" required />
+            </div>
+          </div>
+            <div class="input-field-item">
+            <p>Modalidad de atención</p>
+            <div class="d-flex flex-column gap-2">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="atencionDistancia" [checked]="user.modalidadAtencion?.includes('a_distancia')" (change)="updateModalidadAtencion('a_distancia', $event)">
+                <label class="form-check-label" for="atencionDistancia">A distancia</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="atencionPresencial" [checked]="user.modalidadAtencion?.includes('presencial')" (change)="updateModalidadAtencion('presencial', $event)">
+                <label class="form-check-label" for="atencionPresencial">Presencial</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="atencionDomicilio" [checked]="user.modalidadAtencion?.includes('domicilio')" (change)="updateModalidadAtencion('domicilio', $event)">
+                <label class="form-check-label" for="atencionDomicilio">A domicilio</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="atencionConsultorio" [checked]="user.modalidadAtencion?.includes('consultorio')" (change)="updateModalidadAtencion('consultorio', $event)">
+                <label class="form-check-label" for="atencionConsultorio">En consultorio</label>
+                </div>
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="atencionProgramada" [checked]="user.modalidadAtencion?.includes('programada')" (change)="updateModalidadAtencion('programada', $event)">
+                <label class="form-check-label" for="atencionProgramada">Programada</label>
+                </div>
+            </div>
+            </div>
+          <div class="input-field-item">
+            <p>Zona de atención</p>
+            <div class="input-field">
+              <select [(ngModel)]="user.zonaAtencion" name="zonaAtencion" class="form-select" required>
+                <option value="" disabled selected>Seleccione su zona de atención</option>
+                <option value="Zona 1">Zona 1</option>
+                <option value="Zona 2">Zona 2</option>
+                <option value="Zona 3">Zona 3</option>
+                <option value="Zona 4">Zona 4</option>
+                <option value="Zona 5">Zona 5</option>
+                <option value="Zona 6">Zona 6</option>
+                <option value="Zona 7">Zona 7</option>
+                <option value="Zona 8">Zona 8</option>
+                <option value="Zona 9">Zona 9</option>
+                <option value="Zona 10">Zona 10</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="d-flex flex-column gap-4 align-items-center w-100">
+            <button type="submit" class="link-button d-block w-100">
+              <span *ngIf="!isSaving">Guardar cambios</span>
+              <span *ngIf="isSaving">Guardando...</span>
+            </button>
+            <button type="button" (click)="goBack()" class="link-button link-button--outline d-block w-100">
+              Cancelar
+            </button>
+          </div>
+        </form>
+      </section>

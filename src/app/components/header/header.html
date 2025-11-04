@@ -7,11 +7,12 @@
             <img src="assets/img/user_img.png" alt="" />
           </div>
           <div class="">
-            <h3 class="heading-3 pb-2">Usuario!</h3>
-            <p
-              class="d-inline-flex gap-2 location justify-content-start align-items-center"
-            >
-              Dirección <i class="ph-fill ph-map-pin"></i>
+            <h3 class="heading-3 pb-2">
+              {{ user?.name || 'Usuario' }}
+            </h3>
+            <p class="d-inline-flex gap-2 location justify-content-start align-items-center">
+              {{ user?.address || 'Dirección' }} 
+              <i class="ph-fill ph-map-pin"></i>
             </p>
           </div>
         </div>

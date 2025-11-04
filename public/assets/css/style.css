@@ -209,7 +209,10 @@ textarea:focus {
   --body-font: "Poppins", sans-serif;
   --transition: all 0.5s ease-in-out;
   --p1: /* rgba(0, 146, 129, 1); */ #0fa49e;
-  --n1: /* rgba(14, 13, 57, 1); */ #ec4e81;
+  --n1: /* rgba(14, 13, 57, 1); */ #e5397d;
+  --n1: /* rgba(14, 13, 57, 1); */ #ff4f8b;
+  --n1: /* rgba(14, 13, 57, 1); */ #ce66ff;
+
   --n2: /* rgba(69, 69, 103, 1); */ rgb(39, 39, 80);
   --n40: rgba(224, 224, 229, 1);
   --white: #ffff;
@@ -1601,9 +1604,10 @@ textarea:focus {
 }
 
 .doctor-profile-bottom {
-  margin-top: -32px;
+  margin-top: -60px;
   background-color: var(--p1);
   border-radius: 40px 40px 0px 0px;
+  position: relative;
 }
 .doctor-profile-bottom .bottom-top {
   padding: 24px;

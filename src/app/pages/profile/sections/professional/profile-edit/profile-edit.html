@@ -5,7 +5,7 @@
           >
             <i class="ph ph-caret-left"></i>
           </a>
-          <h2>Edita tu perfil</h2>
+          <h2>Edita tu perfil (datos personales)</h2>
         </div>
       </section>
       <section class="sign-in-area">
@@ -17,13 +17,13 @@
             </div>
           </div>
           <div class="input-field-item">
-            <p>Telefono</p>
+            <p>Teléfono</p>
             <div class="input-field">
               <input type="tel" [(ngModel)]="user.phone" name="phone" placeholder="Enter your phone number" />
             </div>
           </div>
           <div class="input-field-item">
-            <p>Correo electronico</p>
+            <p>Correo electrónico</p>
             <div class="input-field">
               <input type="email" [(ngModel)]="user.email" name="email" placeholder="Enter your email" required />
             </div>
@@ -35,9 +35,14 @@
             </div>
           </div>
           <div class="input-field-item">
-            <p>Genero</p>
+            <p>Género</p>
             <div class="input-field">
-              <input type="text" [(ngModel)]="user.gender" name="gender" placeholder="Enter your gender" required />
+              <select [(ngModel)]="user.gender" name="gender" class="form-select" required>
+                <option value="" disabled selected>Seleccione su género</option>
+                <option value="Femenino">Femenino</option>
+                <option value="Masculino">Masculino</option>
+                <option value="Otro">Otro</option>
+              </select>
             </div>
           </div>
           <div class="input-field-item">
