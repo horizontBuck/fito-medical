@@ -17,4 +17,11 @@ export class ProfileService {
       this.userProfile.next(profile);
     });
   }
+
+  async updateProfile(profile: any) {
+    const updatedProfile = await this.pb.updateUser(profile.id, profile);
+    // Update the user profile in the BehaviorSubject
+    this.userProfile.next(updatedProfile);
+    return updatedProfile;
+  }
 }

@@ -11,6 +11,7 @@
             <div class="">
               <h3 class="heading-3 text-white">{{ user?.name || 'Usuario' }}</h3>
               <p class="text-white pt-2 fw-light">{{ user?.phone || 'Usuario' }}</p>
+              <p class="text-white pt-2 fw-light">{{ user?.email || 'Usuario' }}</p>  
             </div>
           </div>
           <a  class="edit-icon flex-center" (click)="editProfile()">
@@ -109,7 +110,7 @@
               <div class="flex-center">
                 <i class="ph ph-users-three setting-icon logout"></i>
               </div>
-              <p class="fs-5 fw-semibold logout-text">Cerrar sesión</p>
+              <p class="fs-5 fw-semibold logout-text" (click)="auth.logout()">Cerrar sesión</p>
             </div>
             <div class="chevron_icon">
               <i class="ph ph-caret-right"></i>

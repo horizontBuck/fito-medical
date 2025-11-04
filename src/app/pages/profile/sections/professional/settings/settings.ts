@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../../../services/profile.service';
 import { Router } from '@angular/router';
+import { AuthPocketbaseService } from '../../../../../services/auth-pocketbase.service';
 
 @Component({
   selector: 'app-settings',
@@ -15,7 +16,8 @@ export class Settings implements OnInit {
   
   constructor(
     private profileService: ProfileService,
-    private router: Router
+    private router: Router,
+    public auth: AuthPocketbaseService
   ) {}
 
   ngOnInit() {
