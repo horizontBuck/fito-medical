@@ -16,7 +16,9 @@ export interface Professional {
   zonaAtencion?: any[];
   especialidades?: any[];
   phone?: string;
-  biography?: string;
+  Biography?: string;
+  category?: string;
+  subcategory?: string;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -64,7 +66,7 @@ export class ProfessionalsService {
         zonaAtencion: this.parseJson(u.zonaAtencion),
         rating: u.rating || Math.round(Math.random() * 10) / 2 + 3.5,
         price: u.price || Math.floor(Math.random() * 30) + 20,
-        biography: u.biography,
+        Biography: u.Biography,
       }));
 
       this._professionals$.next(processed);
@@ -97,6 +99,7 @@ getAvatarUrl(user: Professional): string {
     return 'assets/img/default-avatar.png';
   }
 }
+
 
   /** 🔹 Suscripción realtime (Server-Sent Events) */
   async subscribeRealtime(): Promise<void> {

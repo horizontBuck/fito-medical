@@ -6,7 +6,18 @@
         >
           <div class="d-flex justify-content-start align-items-center gap-4">
             <div class="">
-              <img src="assets/img/profile-settings-img.png" alt="" />
+              <img
+                  [src]="user?.avatarFile ? professionalsService.getAvatarUrl(user) : 'assets/img/default-avatar.png'"
+                  style="
+                  min-width: 60px;
+                  width: 60px;
+                  height: 60px;
+                  min-height: 60px;   
+                  border-radius: 50%;               
+                  "
+                  alt="{{ user?.name }}"
+                />
+              <!-- <img src="assets/img/profile-settings-img.png" alt="" /> -->
             </div>
             <div class="">
               <h3 class="heading-3 text-white">{{ user?.name || 'Usuario' }}</h3>

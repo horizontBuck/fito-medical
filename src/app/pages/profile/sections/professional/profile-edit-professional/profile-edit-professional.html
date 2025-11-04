@@ -40,13 +40,19 @@
                     required>
                     <option value="" disabled selected>Seleccione una subcategoría</option>
                     <option *ngFor="let sub of getCurrentSubcategories()" 
-        [value]="sub.id || sub">
-  {{ sub.name || sub }}
-</option>
+                            [value]="sub.id || sub">
+                    {{ sub.name || sub }}
+                    </option>
                 </select>
                 </div>
             </div>
             </div>
+            <div class="input-field-item">
+            <p>Sobre mí</p>
+            <div class="input-field">
+              <textarea [(ngModel)]="user.Biography" name="Biography" placeholder="Ingrese su biografía" required></textarea>
+            </div>
+          </div>
           <div class="input-field-item">
             <p>Nombre del consultorio</p>
             <div class="input-field">

@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../../../services/profile.service';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { AuthPocketbaseService } from '../../../../../services/auth-pocketbase.service';
+import { ProfessionalsService } from '../../../../../services/professionals.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +18,8 @@ export class Settings implements OnInit {
   constructor(
     private profileService: ProfileService,
     private router: Router,
-    public auth: AuthPocketbaseService
+    public auth: AuthPocketbaseService,
+    public professionalsService: ProfessionalsService
   ) {}
 
   ngOnInit() {
