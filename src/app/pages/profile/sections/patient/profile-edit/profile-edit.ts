@@ -90,4 +90,5 @@ export class ProfileEdit implements OnInit {
   goBack() {
     this.router.navigate(['/']);
   }
+  
 }

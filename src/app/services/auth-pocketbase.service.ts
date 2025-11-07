@@ -208,9 +208,11 @@ export class AuthPocketbaseService {
     const suffix = Math.random().toString(36).slice(2, 6);
     return `${base || 'user'}_${suffix}`;
   }
-  getAvatarUrl(user: RecordModel): string {
-    return this.pb.getFileUrl(user, user['avatarFile']);
-  }
+  getAvatarUrl(user: any): string {
+  if (!user?.avatarFile) return 'assets/img/default-avatar.png';
+  return this.pb.files.getURL(user, user.avatarFile);
+}
+
   /** Normaliza errores de PB a mensajes claros */
   private mapPocketbaseError(err: unknown): Error {
     const e = err as any;

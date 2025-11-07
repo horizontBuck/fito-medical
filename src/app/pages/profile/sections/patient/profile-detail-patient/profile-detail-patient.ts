@@ -7,7 +7,7 @@ import { AuthPocketbaseService } from '../../../../../services/auth-pocketbase.s
 @Component({
   selector: 'app-profile-detail-patient',
   standalone: true,
-  imports: [CommonModule, ],
+  imports: [CommonModule, RouterLink ],
   templateUrl: './profile-detail-patient.html',
   styleUrl: './profile-detail-patient.scss',
 })
@@ -35,11 +35,24 @@ export class ProfileDetailPatient implements OnInit {
   this.router.navigate(['/']);
 }
 edit() {
-  this.router.navigate(['/profile/patient/editPatient']);
+  console.log('Attempting to navigate to edit page...');
+  this.router.navigate(['/profile/patient/editPatient'])
+    .then(success => {
+      console.log('Navigation result:', success);
+      if (!success) {
+        console.error('Navigation failed. Route not found.');
+        console.log('Current router config:', this.router.config);
+      }
+    })
+    .catch(error => {
+      console.error('Navigation error:', error);
+    });
 }
+
 navigateToSettings() {
   this.router.navigate(['/profile/patient/settingsPatient']);
 }
+
 }
 
 
