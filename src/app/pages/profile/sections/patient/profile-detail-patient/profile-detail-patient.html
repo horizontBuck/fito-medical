@@ -1,39 +1,42 @@
-<section class="doctor-profile-img">
-  <div class="position-relative flex-center w-100">
+<section class="patient-header">
+  <div class="profile-header-container flex-center position-relative w-100">
+    <!-- 🖼️ Avatar del paciente -->
     <img
       [src]="auth.getAvatarUrl(paciente)"
       class="profile-avatar shadow-lg"
       [alt]="'Foto de perfil de ' + (paciente?.name || 'paciente')"
-
     />
-   <a [routerLink]="['/profile/patient/editPatient']" class="edit-icon flex-center" title="Editar">
-  <i class="ph ph-pencil-simple-line"></i>
-</a>
-    <div class="position-absolute top-icon w-100">
-      <div class="d-flex justify-content-between align-items-center w-100">
-        <a (click)="goBack()" class="back-button flex-center">
-          <i class="ph ph-caret-left"></i>
+
+    <!-- 🔘 Controles superiores -->
+    <div class="header-controls position-absolute w-100 d-flex justify-content-between align-items-center">
+      <a (click)="goBack()" class="icon-btn flex-center" title="Volver">
+        <i class="ph ph-caret-left"></i>
+      </a>
+
+      <div class="right-controls d-flex align-items-center gap-3">
+        <a (click)="edit()" class="icon-btn flex-center" title="Editar">
+          <i class="ph ph-pencil-simple-line"></i>
         </a>
-
-
-<button class="share-button flex-center" (click)="navigateToSettings()" title="Ajustes">
-  <i class="ph ph-gear"></i>
-</button>
-
+        <button (click)="navigateToSettings()" class="icon-btn flex-center" title="Ajustes">
+          <i class="ph ph-gear"></i>
+        </button>
       </div>
     </div>
   </div>
-</section>
-
-<div class="patient-profile-bottom">
   <div class="bottom-header text-center">
     <h2 class="fw-bold">{{ paciente?.name }}</h2>
     <p class="email text-muted">{{ paciente?.email }}</p>
   </div>
+</section>
+
+
+<div class="patient-profile-bottom">
+  
 
   <!-- 📋 Datos personales -->
   <div class="patient-card mt-4">
-    <div class="info-row">
+    <div class="row">
+    <div class="col-6 info-row">
       <i class="ph ph-user"></i>
       <div>
         <p>Género</p>
@@ -41,16 +44,17 @@
       </div>
     </div>
 
-    <div class="info-row">
+    <div class="col-6 info-row">
       <i class="ph ph-calendar-blank"></i>
       <div>
         <p>Fecha Nacimiento</p>
-<p class="fw-bold">
-  {{ paciente?.birthDate ? (paciente.birthDate | date:'dd/MM/yyyy') : 'No registrada' }}
-</p>      </div>
+        <p class="fw-bold">
+          {{ paciente?.birthDate ? (paciente.birthDate | date:'dd/MM/yyyy') : 'No registrada' }}
+        </p>     
+      </div>
     </div>
 
-    <div class="info-row">
+    <div class="col-6 info-row">
       <i class="ph ph-phone"></i>
       <div>
         <p>Teléfono</p>
@@ -58,12 +62,13 @@
       </div>
     </div>
 
-    <div class="info-row">
+    <div class="col-6 info-row">
       <i class="ph ph-identification-card"></i>
       <div>
         <p>RUT</p>
         <p class="fw-bold">{{ paciente?.rut || 'No registrado' }}</p>
       </div>
+    </div>
     </div>
   </div>
 

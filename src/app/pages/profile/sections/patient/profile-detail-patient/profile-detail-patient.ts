@@ -35,19 +35,9 @@ export class ProfileDetailPatient implements OnInit {
   this.router.navigate(['/']);
 }
 edit() {
-  console.log('Attempting to navigate to edit page...');
-  this.router.navigate(['/profile/patient/editPatient'])
-    .then(success => {
-      console.log('Navigation result:', success);
-      if (!success) {
-        console.error('Navigation failed. Route not found.');
-        console.log('Current router config:', this.router.config);
-      }
-    })
-    .catch(error => {
-      console.error('Navigation error:', error);
-    });
+  this.router.navigate(['/profile/patient/editPatient']);
 }
+
 
 navigateToSettings() {
   this.router.navigate(['/profile/patient/settingsPatient']);
