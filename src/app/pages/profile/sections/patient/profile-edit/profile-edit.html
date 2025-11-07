@@ -1,0 +1,152 @@
+<section class="px-6 pt-8 notification-top-area">
+  <div class="d-flex justify-content-start align-items-center gap-4 py-3">
+    <a (click)="goBack()" class="back-button flex-center" style="cursor: pointer;">
+      <i class="ph ph-caret-left"></i>
+    </a>
+    <h2>{{ patientId ? 'Editar Paciente' : 'Nuevo Paciente' }}</h2>
+  </div>
+</section>
+
+<section class="sign-in-area">
+  <form [formGroup]="patientForm" (ngSubmit)="savePatient()" class="input-field-area d-flex flex-column gap-4 px-6">
+    <!-- Nombre -->
+    <div class="input-field-item">
+      <p>Nombre completo</p>
+      <div class="input-field">
+        <input 
+          type="text" 
+          formControlName="name" 
+          placeholder="Nombre completo" 
+          [ngClass]="{'is-invalid': patientForm.get('name')?.invalid && patientForm.get('name')?.touched}"
+          required
+        />
+        <i class="ph ph-user"></i>
+      </div>
+      <div *ngIf="patientForm.get('name')?.invalid && patientForm.get('name')?.touched" class="text-danger small mt-1">
+        El nombre es requerido
+      </div>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="input-field-item">
+      <p>Teléfono</p>
+      <div class="input-field">
+        <input 
+          type="tel" 
+          formControlName="phone" 
+          placeholder="Ej: 3001234567" 
+          [ngClass]="{'is-invalid': patientForm.get('phone')?.invalid && patientForm.get('phone')?.touched}"
+          required
+        />
+        <i class="ph ph-phone-call"></i>
+      </div>
+      <div *ngIf="patientForm.get('phone')?.errors?.['required'] && patientForm.get('phone')?.touched" class="text-danger small mt-1">
+        El teléfono es requerido
+      </div>
+      <div *ngIf="patientForm.get('phone')?.errors?.['pattern']" class="text-danger small mt-1">
+        Ingresa un número de teléfono válido (10 dígitos)
+      </div>
+    </div>
+
+    <!-- Correo electrónico -->
+    <div class="input-field-item">
+      <p>Correo electrónico</p>
+      <div class="input-field">
+        <input 
+          type="email" 
+          formControlName="email" 
+          placeholder="correo@ejemplo.com" 
+          [ngClass]="{'is-invalid': patientForm.get('email')?.invalid && patientForm.get('email')?.touched}"
+          required
+        />
+        <i class="ph ph-envelope"></i>
+      </div>
+      <div *ngIf="patientForm.get('email')?.errors?.['required'] && patientForm.get('email')?.touched" class="text-danger small mt-1">
+        El correo es requerido
+      </div>
+      <div *ngIf="patientForm.get('email')?.errors?.['email']" class="text-danger small mt-1">
+        Ingresa un correo electrónico válido
+      </div>
+    </div>
+
+    <!-- RUT -->
+    <div class="input-field-item">
+      <p>RUT</p>
+      <div class="input-field">
+        <input 
+          type="text" 
+          formControlName="rut" 
+          placeholder="Ej: 12345678-9" 
+          [ngClass]="{'is-invalid': patientForm.get('rut')?.invalid && patientForm.get('rut')?.touched}"
+          required
+        />
+        <i class="ph ph-identification-card"></i>
+      </div>
+      <div *ngIf="patientForm.get('rut')?.invalid && patientForm.get('rut')?.touched" class="text-danger small mt-1">
+        El RUT es requerido
+      </div>
+    </div>
+
+    <!-- Fecha de Nacimiento -->
+    <div class="input-field-item">
+      <p>Fecha de Nacimiento</p>
+      <div class="input-field">
+        <input 
+          type="date" 
+          formControlName="birthdate" 
+          [ngClass]="{'is-invalid': patientForm.get('birthdate')?.invalid && patientForm.get('birthdate')?.touched}"
+          required
+        />
+        <i class="ph ph-calendar"></i>
+      </div>
+      <div *ngIf="patientForm.get('birthdate')?.invalid && patientForm.get('birthdate')?.touched" class="text-danger small mt-1">
+        La fecha de nacimiento es requerida
+      </div>
+    </div>
+
+    <!-- Género -->
+    <div class="input-field-item">
+      <p>Género</p>
+      <select 
+        class="form-select" 
+        formControlName="gender"
+        [ngClass]="{'is-invalid': patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched}"
+        required
+      >
+        <option value="" disabled selected>Seleccione un género</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+        <option value="Prefiero no decirlo">Prefiero no decirlo</option>
+      </select>
+      <div *ngIf="patientForm.get('gender')?.invalid && patientForm.get('gender')?.touched" class="text-danger small mt-1">
+        Por favor selecciona un género
+      </div>
+    </div>
+
+    <!-- Botones -->
+    <div class="d-flex flex-column gap-3 align-items-center w-100 mt-4">
+      <button 
+        type="submit" 
+        class="btn btn-primary w-100 py-3"
+        [disabled]="patientForm.invalid || isSaving"
+      >
+        <span *ngIf="!isSaving">
+          {{ patientId ? 'Actualizar' : 'Guardar' }}
+        </span>
+        <span *ngIf="isSaving" class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </span>
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary w-100"
+        (click)="goBack()"
+        [disabled]="isSaving"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</section>

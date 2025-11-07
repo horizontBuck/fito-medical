@@ -9,9 +9,11 @@ import { ProfileDetail } from './pages/profile/sections/professional/profile-det
 import { Professional } from './pages/profile/sections/professional/professional';
 import { Patient } from './pages/profile/sections/patient/patient';
 import { ProfileDetailPatient } from './pages/profile/sections/patient/profile-detail-patient/profile-detail-patient';
-import { ProfileEdit } from './pages/profile/sections/professional/profile-edit/profile-edit';
+import { ProfileEdit } from './pages/profile/sections/patient/profile-edit/profile-edit';
 import { ProfileEditProfessional } from './pages/profile/sections/professional/profile-edit-professional/profile-edit-professional';
 import { Maps } from './pages/maps/maps';
+import { from } from 'rxjs';
+
 
 export const routes: Routes = [
          {
@@ -103,6 +105,8 @@ export const routes: Routes = [
         children: [
           { path: '', redirectTo: 'detail', pathMatch: 'full' },
           { path: 'detail', component: ProfileDetailPatient },
+          { path: 'settingsPatient', component: Settings },
+          { path: 'edit', component: ProfileEdit },
         ],
       },
       

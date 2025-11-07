@@ -1,81 +1,84 @@
-  <section class="px-6 pt-8 notification-top-area">
-        <div class="d-flex justify-content-start align-items-center gap-4 py-3">
-          <a
-            href="doctor-profile.html"
-            class="p1-color back-button flex-center"
-          >
-            <i class="ph ph-caret-left"></i>
+<section class="doctor-profile-img">
+  <div class="position-relative flex-center w-100">
+    <img
+      [src]="auth.getAvatarUrl(paciente)"
+      class="profile-avatar shadow-lg"
+      [alt]="'Foto de perfil de ' + (paciente?.name || 'paciente')"
+
+    />
+    <a class="edit-icon flex-center" (click)="edit()" title="Editar datos personales">
+            <i class="ph ph-pencil-simple-line"></i>
           </a>
-          <h2>Patient Details</h2>
-        </div>
-      </section>
-
-      <!-- Details Section Start -->
-      <form
-        onsubmit="return false;"
-        class="input-field-area d-flex flex-column gap-4 px-6"
-      >
-        <div class="input-field-item">
-          <p>Full Name</p>
-          <div
-            class="d-flex justify-content-between align-items-center input-field"
-          >
-            <input type="text" class="" placeholder="Full Name" />
-            <i class="ph ph-user"></i>
-          </div>
-        </div>
-
-        <div class="age-range-area">
-          <p class="title">Select Your Age Range *</p>
-          <div
-            class="d-flex justify-content-start align-items-center gap-3 flex-wrap"
-          >
-            <button class="item ageButton">20+</button>
-            <button class="item active ageButton">30+</button>
-            <button class="item ageButton">40+</button>
-            <button class="item ageButton">50+</button>
-            <button class="item ageButton">60+</button>
-          </div>
-        </div>
-
-        <div class="input-field-item">
-          <p>Phone Number</p>
-          <div
-            class="d-flex justify-content-between align-items-center input-field"
-          >
-            <input type="text" class="" placeholder="Phone Number" />
-            <i class="ph ph-phone-call"></i>
-          </div>
-        </div>
-
-        <div class="sort-options w-100">
-          <h6 class="pb-5">Gender</h6>
-          <div class="d-flex justify-content-between align-items-center gap-4">
-            <div class="gender-button">
-              <button>Male</button>
-            </div>
-            <div class="gender-button active">
-              <button>Female</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="input-field-item">
-          <p>Write Your Problem</p>
-          <div
-            class="d-flex justify-content-between align-items-center input-field"
-          >
-            <textarea
-              class=""
-              placeholder="Tell doctor about your problem..."
-            ></textarea>
-          </div>
-        </div>
-      </form>
-      <!-- Details Section End -->
-
-      <div class="d-flex flex-column gap-8 mt-16 mx-6">
-        <a href="make-payment.html" class="link-button d-block text-center"
-          >Continue</a
-        >
+    <div class="position-absolute top-icon w-100">
+      <div class="d-flex justify-content-between align-items-center w-100">
+        <a (click)="goBack()" class="back-button flex-center">
+          <i class="ph ph-caret-left"></i>
+        </a>
+<button class="share-button flex-center" style="cursor: pointer;" (click)="navigateToSettings()">
+  <i class="ph ph-gear"></i>
+</button>
       </div>
+    </div>
+  </div>
+</section>
+
+<div class="patient-profile-bottom">
+  <div class="bottom-header text-center">
+    <h2 class="fw-bold">{{ paciente?.name }}</h2>
+    <p class="email text-muted">{{ paciente?.email }}</p>
+  </div>
+
+  <!-- 📋 Datos personales -->
+  <div class="patient-card mt-4">
+    <div class="info-row">
+      <i class="ph ph-user"></i>
+      <div>
+        <p>Género</p>
+        <p class="fw-bold">{{ paciente?.gender || 'No especificado' }}</p>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <i class="ph ph-calendar-blank"></i>
+      <div>
+        <p>Fecha Nacimiento</p>
+<p class="fw-bold">
+  {{ paciente?.birthDate ? (paciente.birthDate | date:'dd/MM/yyyy') : 'No registrada' }}
+</p>      </div>
+    </div>
+
+    <div class="info-row">
+      <i class="ph ph-phone"></i>
+      <div>
+        <p>Teléfono</p>
+        <p class="fw-bold">{{ paciente?.phone || 'No registrado' }}</p>
+      </div>
+    </div>
+
+    <div class="info-row">
+      <i class="ph ph-identification-card"></i>
+      <div>
+        <p>RUT</p>
+        <p class="fw-bold">{{ paciente?.rut || 'No registrado' }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🩺 Ficha médica -->
+  <div class="doctor-about mt-5">
+    <h3 class="fw-bold mb-3">Ficha Médica</h3>
+    <div class="medical-info">
+      <p><i class="ph ph-clipboard-text"></i> <strong>Historia:</strong> {{ paciente?.medicalHistory || 'Sin registros' }}</p>
+      <p><i class="ph ph-pill"></i> <strong>Alergias:</strong> {{ paciente?.allergies || 'No registradas' }}</p>
+      <p><i class="ph ph-stethoscope"></i> <strong>Medicamentos:</strong> {{ paciente?.medications || 'No registrados' }}</p>
+      <p><i class="ph ph-activity"></i> <strong>Última cita:</strong> {{ paciente?.lastAppointment ? (paciente.lastAppointment | date:'dd/MM/yyyy') : 'N/A' }}</p>
+    </div>
+  </div>
+
+  <!-- 📅 Acción -->
+  <div class="d-flex flex-column gap-8 mt-5">
+    <a class="link-button d-block text-center" routerLink="/appointments/new">
+      Agendar nueva cita
+    </a>
+  </div>
+</div>
