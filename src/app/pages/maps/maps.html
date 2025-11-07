@@ -1,0 +1,19 @@
+<div class="map-container">
+  <input
+    type="text"
+    placeholder="Buscar lugar..."
+    class="search-box"
+    #search
+  />
+
+  <google-map
+  *ngIf="center"
+  [center]="center"
+  [zoom]="zoom"
+  height="630px"
+  width="100%"
+>
+  <map-marker *ngIf="selectedMarker" [position]="selectedMarker"></map-marker>
+</google-map>
+
+</div>

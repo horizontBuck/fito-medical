@@ -21,6 +21,7 @@ export class ProfileEditProfessional implements OnInit {
   categories: Category[] = [];
   selectedCategory: string = '';
   selectedSubcategory: string = '';
+  isUpdatingLocation = false;
 
   constructor(
     private location: Location,
@@ -161,4 +162,74 @@ export class ProfileEditProfessional implements OnInit {
   goBack() {
     this.location.back();
   }
+  async updateLocation() {
+  if (this.isUpdatingLocation) return;
+  this.isUpdatingLocation = true;
+
+  try {
+    if (!navigator.geolocation) {
+      await Swal.fire({
+        title: 'Geolocalización no soportada',
+        text: 'Tu navegador no permite obtener la ubicación actual.',
+        icon: 'warning',
+        confirmButtonText: 'Entendido',
+      });
+      return;
+    }
+
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+
+        // ✅ Guardar en el perfil local y en la base de datos
+        this.user.lat = lat;
+        this.user.lng = lng;
+
+        try {
+          await this.profileService.updateProfile({
+            id: this.user.id,
+            lat,
+            lng,
+          });
+
+          await Swal.fire({
+            title: 'Ubicación actualizada ✅',
+            text: `Se guardó correctamente tu ubicación actual.`,
+            icon: 'success',
+            timer: 2000,
+            showConfirmButton: false,
+          });
+        } catch (error) {
+          console.error('Error al guardar ubicación:', error);
+          Swal.fire({
+            title: 'Error al guardar',
+            text: 'No se pudo guardar la ubicación en el servidor.',
+            icon: 'error',
+          });
+        } finally {
+          this.isUpdatingLocation = false;
+        }
+      },
+      (error) => {
+        console.error('Error al obtener ubicación:', error);
+        this.isUpdatingLocation = false;
+
+        let message = 'No se pudo obtener tu ubicación.';
+        if (error.code === 1) message = 'Permiso denegado.';
+        else if (error.code === 2) message = 'Ubicación no disponible.';
+        else if (error.code === 3) message = 'Tiempo de espera agotado.';
+
+        Swal.fire({
+          title: 'Error',
+          text: message,
+          icon: 'error',
+        });
+      },
+      { enableHighAccuracy: true, timeout: 10000 }
+    );
+  } finally {
+    this.isUpdatingLocation = false;
+  }
+}
 }

@@ -4,6 +4,7 @@ import { ScriptLoader } from './services/script-loader';
 import { Header } from './components/header/header';
 import { FooterMenu } from './components/footer-menu/footer-menu';
 import { AuthPocketbaseService } from './services/auth-pocketbase.service';
+import { environment } from './environments/environment';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +26,15 @@ async ngOnInit() {
     const valid = await this.auth.initSession();
     this.isLoggedIn = valid;
     this.userRole = this.auth.currentUser?.['role'] ?? null;
+    this.loadGoogleMaps();
+  }
+
+  private loadGoogleMaps() {
+    const script = document.createElement('script');
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${environment.googleMapsApiKey}&libraries=places`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
   }
 navigateTo(route: string) {
   this.router.navigate([route]);

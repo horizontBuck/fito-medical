@@ -1,7 +1,7 @@
 <section
  *ngIf="showHeader" class="py-8 doctor-profle-img"
   style="background-color: #fff;"
-  [hidden]="this.router.url.includes('profile/professional/detail') "
+  [hidden]="this.router.url.includes('profile/professional/detail') || this.router.url.includes('profile/professional/edit-professional') "
   >
   <div class="position-relative flex-center w-100">
     <div class="position-absolute top-icon w-100">

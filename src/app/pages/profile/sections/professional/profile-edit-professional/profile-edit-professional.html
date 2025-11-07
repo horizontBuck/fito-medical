@@ -91,23 +91,24 @@
             </div>
             </div>
           <div class="input-field-item">
-            <p>Zona de atención</p>
-            <div class="input-field">
-              <select [(ngModel)]="user.zonaAtencion" name="zonaAtencion" class="form-select" required>
-                <option value="" disabled selected>Seleccione su zona de atención</option>
-                <option value="Zona 1">Zona 1</option>
-                <option value="Zona 2">Zona 2</option>
-                <option value="Zona 3">Zona 3</option>
-                <option value="Zona 4">Zona 4</option>
-                <option value="Zona 5">Zona 5</option>
-                <option value="Zona 6">Zona 6</option>
-                <option value="Zona 7">Zona 7</option>
-                <option value="Zona 8">Zona 8</option>
-                <option value="Zona 9">Zona 9</option>
-                <option value="Zona 10">Zona 10</option>
-              </select>
-            </div>
-          </div>
+  <p>Ubicación geográfica</p>
+  <div class="input-field d-flex flex-column gap-3">
+    <div *ngIf="user.lat && user.lng" class="text-muted small">
+      Lat: {{ user.lat | number:'1.5-5' }}, Lng: {{ user.lng | number:'1.5-5' }}
+    </div>
+
+    <button
+      type="button"
+      class="link-button link-button--outline d-block w-100"
+      (click)="updateLocation()"
+      [disabled]="isUpdatingLocation"
+    >
+      <span *ngIf="!isUpdatingLocation">Actualizar mi ubicación actual</span>
+      <span *ngIf="isUpdatingLocation">Obteniendo ubicación...</span>
+    </button>
+  </div>
+</div>
+
           
           <div class="d-flex flex-column gap-4 align-items-center w-100">
             <button type="submit" class="link-button d-block w-100">

@@ -19,6 +19,8 @@ export interface Professional {
   Biography?: string;
   category?: string;
   subcategory?: string;
+  gender?: string;
+  isOnline?: boolean;
 }
 
 @Injectable({ providedIn: 'root' })
@@ -35,9 +37,12 @@ export class ProfessionalsService {
     this.subscribeRealtime();
 
     pb.authStore.onChange(() => {
-      console.log('🔐 Cambio de sesión → autenticado:', pb.authStore.isValid);
+      console.log(' Cambio de sesión → autenticado:', pb.authStore.isValid);
     });
   }
+getCurrentUserId(): string | undefined {
+  return pb.authStore.model?.id;
+}
 
   /** 🔹 Cargar profesionales aprobados (SDK PocketBase) */
   async loadProfessionals(): Promise<void> {
@@ -67,6 +72,10 @@ export class ProfessionalsService {
         rating: u.rating || Math.round(Math.random() * 10) / 2 + 3.5,
         price: u.price || Math.floor(Math.random() * 30) + 20,
         Biography: u.Biography,
+        gender: u.gender,
+        lat: u.lat,
+        lng: u.lng,
+        isOnline: u.isOnline,
       }));
 
       this._professionals$.next(processed);
@@ -124,4 +133,22 @@ getAvatarUrl(user: Professional): string {
       console.error('⚠️ Error al cancelar suscripción realtime:', err);
     }
   }
+
+ 
+async updateProfessionalStatus(id: string, data: Partial<Professional>) {
+  try {
+    const userId = id || pb.authStore.model?.id;
+    if (!userId) throw new Error('No se encontró el ID del usuario autenticado');
+
+    console.log('📝 Actualizando usuario con ID:', userId);
+    return await pb.collection('users').update(userId, data);
+  } catch (err) {
+    console.error('❌ Error en updateProfessionalStatus:', err);
+    throw err;
+  }
+}
+
+
+
+
 }

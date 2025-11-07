@@ -11,6 +11,7 @@ import { Patient } from './pages/profile/sections/patient/patient';
 import { ProfileDetailPatient } from './pages/profile/sections/patient/profile-detail-patient/profile-detail-patient';
 import { ProfileEdit } from './pages/profile/sections/professional/profile-edit/profile-edit';
 import { ProfileEditProfessional } from './pages/profile/sections/professional/profile-edit-professional/profile-edit-professional';
+import { Maps } from './pages/maps/maps';
 
 export const routes: Routes = [
          {
@@ -108,4 +109,13 @@ export const routes: Routes = [
       { path: '', redirectTo: 'patient', pathMatch: 'full' },
     ],
   },
+  {
+    path: 'maps',
+    component: Maps,
+    title: 'fito | Mapas',
+    data: {
+      description: 'Mapas en fito',
+      canonical: '/maps',
+    },
+  },  
 ];

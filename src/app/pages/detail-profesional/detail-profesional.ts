@@ -12,9 +12,8 @@ import { Professional, ProfessionalsService } from '../../services/professionals
 })
 export class DetailProfesional implements OnInit {
   profesionalId: string = '';
-  pro: Professional | null = null;
-  isLoading: boolean = true;
   profesional: Professional | null = null;
+  isLoading: boolean = true;
   constructor(
     public router: Router,
     private route: ActivatedRoute,
@@ -34,8 +33,8 @@ export class DetailProfesional implements OnInit {
     this.isLoading = true;
     this.professionalsService.professionals$.subscribe({
       next: (professionals) => {
-        this.pro = professionals.find(p => p.id === this.profesionalId) || null;
-        console.log('Profesional cargado:', this.pro);
+        this.profesional = professionals.find(p => p.id === this.profesionalId) || null;
+        console.log('Profesional cargado:', this.profesional);
         this.isLoading = false;
       },
       error: (error) => {

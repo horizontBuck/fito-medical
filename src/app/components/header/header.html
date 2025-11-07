@@ -1,27 +1,48 @@
       <!-- Header Section Start -->
       <section
         class="d-flex justify-content-between align-items-center home-header-section w-100"
-        *ngIf="showHeader">
-        <div class="d-flex justify-content-start align-items-center gap-4">
-          <div class="">
-           <img 
-            [src]="user?.avatarFile ? professionalsService.getAvatarUrl(user) : 'assets/img/default-avatar.png'" 
-            class="profile-avatar"
-            [alt]="'Foto de perfil de ' + (user?.name || 'usuario')"
-            style="width: 50px; height: 50px;"
+        *ngIf="showHeader" [hidden]="this.router.url === '/profile/edit-professional'">
+     
+        <div class="d-flex align-items-center justify-content-between">
+
+    <!-- Avatar + nombre -->
+    <div class="d-flex align-items-center gap-3">
+      <img
+        [src]="user?.avatarFile ? professionalsService.getAvatarUrl(user) : 'assets/img/user_img.png'"
+        class="profile-avatar"
+        (click)="goToEditProfessional()"
+        alt="Foto de perfil"
+        style="width: 50px; height: 50px; cursor: pointer;"
+      />
+
+      <div class="flex-grow-1">
+        <h3 class="heading-3 mb-1">
+          {{ user?.name || 'Usuario' }}
+        </h3>
+        <p class="d-inline-flex gap-2 align-items-center text-muted small m-0">
+          <i class="ph-fill ph-map-pin"></i>
+          {{ currentLocation }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Solo para proveedores -->
+    <div *ngIf="user?.role === 'proveedor'" class="pt-2 ps-3">
+      <div class="d-flex justify-content-between align-items-center gap-2">
+        <h6 class="m-0">Activo</h6>
+        <div class="switch">
+          <input
+            id="switch-rounded"
+            type="checkbox"
+            [(ngModel)]="user.isOnline"
+            (change)="toggleOnlineStatus()"
           />
-            
-          </div>
-          <div class="">
-            <h3 class="heading-3 pb-2">
-              {{ user?.name || 'Usuario' }}
-            </h3>
-            <p class="d-inline-flex gap-2 location justify-content-start align-items-center">
-              {{ user?.address || 'Dirección' }} 
-              <i class="ph-fill ph-map-pin"></i>
-            </p>
-          </div>
+          <label for="switch-rounded"></label>
         </div>
+      </div>
+    </div>
+
+  </div>
 
         <div
           class="d-flex justify-content-end align-items-center header-right gap-2 flex-wrap"
