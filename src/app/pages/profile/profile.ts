@@ -37,7 +37,7 @@ constructor(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       // Ocultar header en la ruta de edición
-      this.showHeader = !event.url.includes('edit');
+      this.showHeader = !event.url.includes('profile/professional/edit');
     });
 
     // Suscribirse a cambios en el perfil

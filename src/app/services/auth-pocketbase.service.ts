@@ -237,4 +237,28 @@ export class AuthPocketbaseService {
 
     return new Error(message || 'No se pudo completar la operación.');
   }
+  async saveUserLocation(): Promise<void> {
+  if (!navigator.geolocation) return;
+
+  try {
+    const position = await new Promise<GeolocationPosition>((resolve, reject) => {
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+        timeout: 10000,
+      });
+    });
+
+    const coords = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+    };
+
+    // Guarda temporalmente en memoria o localStorage
+    localStorage.setItem('user_location', JSON.stringify(coords));
+
+  } catch (err) {
+    console.warn('No se pudo obtener ubicación del paciente:', err);
+  }
+}
+
 }

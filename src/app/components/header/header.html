@@ -1,28 +1,50 @@
-      <!-- Header Section Start -->
-      <section
-        class="d-flex justify-content-between align-items-center home-header-section w-100"
-        *ngIf="showHeader" [hidden]="this.router.url === '/profile/edit-professional'">
-     
-        <div class="d-flex align-items-center justify-content-between">
-
+<!-- Header Section Start -->
+<section
+  class="d-flex justify-content-between align-items-center home-header-section w-100"
+  *ngIf="showHeader"
+  [hidden]="this.router.url === '/profile/edit-professional' || this.router.url === '/detail-profesional'  "
+>
+  <div class="d-flex align-items-center justify-content-between">
     <!-- Avatar + nombre -->
     <div class="d-flex align-items-center gap-3">
       <img
-        [src]="user?.avatarFile ? professionalsService.getAvatarUrl(user) : 'assets/img/user_img.png'"
+        [src]="
+          user?.avatarFile
+            ? professionalsService.getAvatarUrl(user)
+            : 'assets/img/avatar.png'
+        "
         class="profile-avatar"
         (click)="goToEditProfessional()"
         alt="Foto de perfil"
         style="width: 50px; height: 50px; cursor: pointer;"
       />
+      
 
       <div class="flex-grow-1">
-        <h3 class="heading-3 mb-1">
-          {{ user?.name || 'Usuario' }}
-        </h3>
-        <p class="d-inline-flex gap-2 align-items-center text-muted small m-0">
+        <h3 class="heading-3 mb-1">{{ user?.name || 'Usuario' }}</h3>
+
+        <!-- 📍 Dirección (paciente o proveedor) -->
+        <p
+          class="d-inline-flex gap-2 align-items-center text-muted small m-0"
+          [ngClass]="{
+            'text-primary': user?.role === 'cliente' && currentLocation === 'No disponible'
+          }"
+          (click)="user?.role === 'cliente' && currentLocation === 'No disponible' ? setPatientLocation() : null"
+          style="cursor: pointer;"
+        >
           <i class="ph-fill ph-map-pin"></i>
-          {{ currentLocation }}
+          <span *ngIf="currentLocation !== 'Obteniendo ubicación...'">
+            {{ currentLocation }}
+            <ng-container *ngIf="user?.role === 'cliente' && currentLocation === 'No disponible'">
+              (tocar para agregar)
+            </ng-container>
+          </span>
+          <span *ngIf="currentLocation === 'Obteniendo ubicación...'">
+            <i class="ph-duotone ph-spinner fa-spin"></i> Obteniendo ubicación...
+          </span>
         </p>
+
+
       </div>
     </div>
 
@@ -41,21 +63,18 @@
         </div>
       </div>
     </div>
-
   </div>
 
-        <div
-          class="d-flex justify-content-end align-items-center header-right gap-2 flex-wrap"
-        >
-          <button class="p-2 flex-center" id="notificationModalOpenButton">
-            <i class="ph ph-bell fs-5"></i>
-
-            <span class="notification"></span>
-          </button>
-          <button class="p-2 flex-center" id="favoriteModalOpenButton">
-            <i class="ph ph-heart-straight fs-5"></i>
-          </button>
-        </div>
-      </section>
-      <!-- Header Section End -->
-  
+  <div
+    class="d-flex justify-content-end align-items-center header-right gap-2 flex-wrap"
+  >
+    <button class="p-2 flex-center" id="notificationModalOpenButton">
+      <i class="ph ph-bell fs-5"></i>
+      <span class="notification"></span>
+    </button>
+    <button class="p-2 flex-center" id="favoriteModalOpenButton">
+      <i class="ph ph-heart-straight fs-5"></i>
+    </button>
+  </div>
+</section>
+<!-- Header Section End -->

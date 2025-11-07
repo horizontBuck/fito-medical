@@ -1,19 +1,79 @@
-<div class="map-container">
-  <input
-    type="text"
-    placeholder="Buscar lugar..."
-    class="search-box"
-    #search
-  />
+<div class="map-container position-relative">
+  <!-- 🔍 Barra de búsqueda -->
+  <input type="text" placeholder="Buscar lugar..." class="search-box" #search />
 
+  <!-- 🗺️ Mapa principal -->
   <google-map
-  *ngIf="center"
-  [center]="center"
-  [zoom]="zoom"
-  height="630px"
-  width="100%"
->
-  <map-marker *ngIf="selectedMarker" [position]="selectedMarker"></map-marker>
-</google-map>
+    *ngIf="center"
+    [center]="center"
+    [zoom]="zoom"
+    height="100vh"
+    width="100%"
+  >
+    <!-- 🔹 Círculo de cobertura (10 km) -->
+    <map-circle
+      [center]="center"
+      [radius]="radius"
+      [options]="{
+        strokeColor: '#00AEEF',
+        strokeOpacity: 0.6,
+        strokeWeight: 1,
+        fillColor: '#00AEEF',
+        fillOpacity: 0.15
+      }"
+    ></map-circle>
 
+    <!-- 🔹 Marcador del paciente -->
+    <map-marker
+      *ngIf="selectedMarker"
+      [position]="selectedMarker"
+      [options]="{
+        icon: {
+          url: 'https://maps.google.com/mapfiles/ms/icons/blue-dot.png'
+        }
+      }"
+      title="Tu ubicación"
+    ></map-marker>
+
+    <!-- 🔹 Marcadores de profesionales activos -->
+    <map-marker
+      *ngFor="let pro of nearbyPros"
+      #marker="mapMarker"
+      [position]="{ lat: pro.lat, lng: pro.lng }"
+      [title]="pro.name"
+      [options]="{
+        icon: {
+          url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
+        }
+      }"
+      (mapClick)="openInfo(marker, pro)"
+    ></map-marker>
+
+    <!-- 🧭 InfoWindow al hacer clic -->
+    <map-info-window>
+      <div *ngIf="selectedPro" class="p-2 text-center" style="min-width: 180px;">
+        <img
+          [src]="
+            selectedPro.avatarFile
+              ? professionalsService.getAvatarUrl(selectedPro)
+              : 'assets/img/default-avatar.png'
+          "
+          alt="{{ selectedPro.name }}"
+          class="rounded-circle mb-2"
+          style="width: 60px; height: 60px; object-fit: cover;"
+        />
+        <h6 class="mb-0">{{ selectedPro.name }}</h6>
+        <small class="text-muted">{{ selectedPro.profession }}</small>
+        <p class="text-muted small mt-1">
+          📍 {{ selectedPro.distance | number: '1.1-1' }} km de ti
+        </p>
+        <button
+          class="btn btn-sm btn-primary w-100 mt-2"
+          (click)="openProfessionalDetail(selectedPro)"
+        >
+          Ver perfil
+        </button>
+      </div>
+    </map-info-window>
+  </google-map>
 </div>

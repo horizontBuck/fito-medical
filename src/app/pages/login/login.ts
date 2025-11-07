@@ -74,6 +74,7 @@ async login() {
   try {
     const { email, password } = this.form.value;
     await this.auth.login(email, password);
+    await this.auth.saveUserLocation();
 
     const user = this.auth.currentUser;
     if (!user) throw new Error('No se pudo obtener el usuario.');
