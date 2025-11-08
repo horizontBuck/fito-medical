@@ -36,6 +36,7 @@ export class ProfessionalsService {
     console.log('🩺 ProfessionalsService inicializado');
     this.loadProfessionals();
     this.subscribeRealtime();
+    this.listenAppointmentsRealtime();
 
     pb.authStore.onChange(() => {
       console.log(' Cambio de sesión → autenticado:', pb.authStore.isValid);
@@ -266,6 +267,83 @@ public haversineDistance(lat1: number, lon1: number, lat2: number, lon2: number)
 
 private deg2rad(deg: number): number {
   return deg * (Math.PI / 180);
+}
+
+// ✅ Obtener usuario autenticado (para el mapa o solicitudes)
+getCurrentUser() {
+  return pb.authStore.model;
+}
+
+// ✅ Verificar si el paciente tiene una solicitud pendiente
+async hasPendingRequest(patientId: string): Promise<boolean> {
+  const list = await pb.collection('appointments').getList(1, 1, {
+    filter: `patient="${patientId}" && (status="pending" || status="in_progress")`,
+  });
+  return list?.items?.length > 0;
+}
+/** 🔥 Escucha en tiempo real las actualizaciones de citas */
+  async listenAppointmentsRealtime() {
+    try {
+      await pb.collection('appointments').subscribe('*', (e) => {
+        console.log('📡 Evento realtime recibido:', e);
+
+        if (e.action === 'create') {
+          const appointment = e.record;
+          // Si el profesional autenticado es el asignado:
+          if (appointment['professional'] === pb.authStore.model?.id) {
+            console.log('🆕 Nueva solicitud recibida:', appointment);
+            // Aquí puedes emitir un EventEmitter o signal para actualizar UI
+          }
+        }
+
+        if (e.action === 'update') {
+          const appointment = e.record;
+          if (appointment['patient'] === pb.authStore.model?.id) {
+            console.log('📢 Tu solicitud cambió de estado:', appointment['status']);
+            // Puedes lanzar una notificación o cambiar vista
+          }
+        }
+      });
+
+      console.log('✅ Suscripción realtime activa');
+    } catch (err) {
+      console.error('❌ Error al suscribirse a realtime:', err);
+    }
+  }
+
+  /** 🧩 Crear una solicitud de cita */
+ async createRequest(data: {
+  patient: string;
+  professional: string;
+  location: any;
+  distanceKm: number;
+  status: string;
+}): Promise<any> {
+  try {
+    console.log('📤 Enviando solicitud:', data);
+
+    const payload = {
+      patient: data.patient,
+      professional: data.professional,
+      // 👇 Enviar objeto, no string
+      location: data.location || {},
+      distanceKm: data.distanceKm || 0,
+      status: data.status || 'pending',
+      details: 'Solicitud generada desde mapa'
+    };
+
+    const record = await pb.collection('appointments').create(payload);
+    console.log('✅ Solicitud creada:', record);
+
+    // Marcar profesional como ocupado
+    await pb.collection('users').update(data.professional, { isOnline: false });
+
+    return record;
+  } catch (error: any) {
+    console.error('❌ Error creando solicitud:', error);
+    if (error.data) console.error('📋 Detalle del error:', error.data);
+    throw error;
+  }
 }
 
 

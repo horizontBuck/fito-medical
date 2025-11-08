@@ -1,16 +1,17 @@
-<div class="map-container position-relative">
-  <!-- 🔍 Barra de búsqueda -->
-  <input type="text" placeholder="Buscar lugar..." class="search-box" #search />
+<div class="map-container position-relative" *ngIf="mapReady && center">
+  <input
+    type="text"
+    placeholder="Buscar lugar..."
+    class="search-box"
+    #search
+  />
 
-  <!-- 🗺️ Mapa principal -->
   <google-map
-    *ngIf="center"
     [center]="center"
     [zoom]="zoom"
     height="100vh"
     width="100%"
   >
-    <!-- 🔹 Círculo de cobertura (10 km) -->
     <map-circle
       [center]="center"
       [radius]="radius"
@@ -23,7 +24,7 @@
       }"
     ></map-circle>
 
-    <!-- 🔹 Marcador del paciente -->
+    <!-- Paciente -->
     <map-marker
       *ngIf="selectedMarker"
       [position]="selectedMarker"
@@ -35,45 +36,114 @@
       title="Tu ubicación"
     ></map-marker>
 
-    <!-- 🔹 Marcadores de profesionales activos -->
+    <!-- Profesionales -->
     <map-marker
       *ngFor="let pro of nearbyPros"
       #marker="mapMarker"
       [position]="{ lat: pro.lat, lng: pro.lng }"
       [title]="pro.name"
+      (mapClick)="openInfo(marker, pro)"
       [options]="{
         icon: {
           url: 'https://maps.google.com/mapfiles/ms/icons/green-dot.png'
         }
       }"
-      (mapClick)="openInfo(marker, pro)"
     ></map-marker>
 
-    <!-- 🧭 InfoWindow al hacer clic -->
-    <map-info-window>
-      <div *ngIf="selectedPro" class="p-2 text-center" style="min-width: 180px;">
-        <img
-          [src]="
-            selectedPro.avatarFile
-              ? professionalsService.getAvatarUrl(selectedPro)
-              : 'assets/img/default-avatar.png'
-          "
-          alt="{{ selectedPro.name }}"
-          class="rounded-circle mb-2"
-          style="width: 60px; height: 60px; object-fit: cover;"
-        />
-        <h6 class="mb-0">{{ selectedPro.name }}</h6>
-        <small class="text-muted">{{ selectedPro.profession }}</small>
-        <p class="text-muted small mt-1">
-          📍 {{ selectedPro.distance | number: '1.1-1' }} km de ti
-        </p>
-        <button
-          class="btn btn-sm btn-primary w-100 mt-2"
-          (click)="openProfessionalDetail(selectedPro)"
-        >
-          Ver perfil
-        </button>
-      </div>
-    </map-info-window>
+    <!-- InfoWindow -->
+   <map-info-window>
+  <div
+    class="info-card text-center p-2"
+    style="
+      width: 220px;
+      font-family: 'Work Sans', sans-serif;
+    "
+  >
+    <!-- Avatar -->
+    <img
+      [src]="selectedPro?.avatarFile
+        ? professionalsService.getAvatarUrl(selectedPro)
+        : 'assets/img/default-avatar.png'"
+      alt="Avatar"
+      class="avatar shadow-sm"
+      style="
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #0fa49e;
+        margin-bottom: 8px;
+      "
+    />
+
+    <!-- Nombre y profesión -->
+    <div>
+      <h6
+        style="
+          margin: 0;
+          font-weight: 600;
+          color: #222;
+          font-size: 15px;
+        "
+      >
+        {{ selectedPro?.name }}
+      </h6>
+      <p
+        style="
+          margin: 0;
+          color: #666;
+          font-size: 13px;
+        "
+      >
+        {{ selectedPro?.profession || 'Profesional de la salud' }}
+      </p>
+    </div>
+
+    <hr
+      style="
+        margin: 8px 0;
+        border: none;
+        border-top: 1px solid #e0e0e0;
+      "
+    />
+
+    <!-- Botones -->
+    <div class="d-flex justify-content-center gap-2 mt-1">
+      <button
+        class="btn btn-sm"
+        style="
+          background-color: #00a8e8;
+          color: #fff;
+          font-size: 12px;
+          padding: 3px 8px;
+          border-radius: 8px;
+        "
+        (click)="openProfessionalDetail(selectedPro)"
+      >
+        Ver perfil
+      </button>
+
+      <button
+        class="btn btn-sm"
+        style="
+          background-color: #28a745;
+          color: #fff;
+          font-size: 12px;
+          padding: 3px 8px;
+          border-radius: 8px;
+        "
+        (click)="requestService(selectedPro)"
+      >
+        Solicitar
+      </button>
+    </div>
+  </div>
+</map-info-window>
+
   </google-map>
+</div>
+
+<div *ngIf="!mapReady" class="flex-center" style="height: 100vh;">
+  <i class="ph-duotone ph-spinner fa-spin fs-3"></i>
+  <p class="ms-2">Cargando mapa...</p>
 </div>

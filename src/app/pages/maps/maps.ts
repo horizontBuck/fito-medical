@@ -11,11 +11,14 @@ import { GoogleMap, MapMarker, MapCircle } from '@angular/google-maps';
 import { Router, NavigationEnd } from '@angular/router';
 import { ProfessionalsService } from '../../services/professionals.service';
 import { MapInfoWindow } from '@angular/google-maps';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @Component({
   selector: 'app-maps',
   standalone: true,
-  imports: [CommonModule, GoogleMap, MapMarker, MapCircle, MapInfoWindow],
+/*   imports: [CommonModule, GoogleMap, MapMarker, MapCircle, MapInfoWindow, GoogleMapsModule],
+ */  
+  imports: [CommonModule, GoogleMapsModule], // ✅ simplificado
   templateUrl: './maps.html',
   styleUrl: './maps.scss',
 })
@@ -37,6 +40,7 @@ export class Maps implements OnInit, AfterViewInit {
 
   selectedPro: any = null;
 
+  marker: MapMarker | null = null;
   constructor(
     private router: Router,
     private ngZone: NgZone,
@@ -51,15 +55,20 @@ export class Maps implements OnInit, AfterViewInit {
     });
   }
 
-  ngAfterViewInit() {
-    // Esperar a que Google Maps esté disponible
-    const checkInterval = setInterval(() => {
-      if (typeof google !== 'undefined' && google.maps) {
-        clearInterval(checkInterval);
-        this.initMap();
-      }
-    }, 500);
-  }
+ 
+ ngAfterViewInit() {
+  const waitForGoogle = () => {
+    if (window.google && window.google.maps) {
+      this.mapReady = true;
+      this.initMap();
+    } else {
+      setTimeout(waitForGoogle, 500);
+    }
+  };
+  waitForGoogle();
+}
+
+
 
   /** 🔹 Inicializa la búsqueda y ubicación */
   private initMap() {
@@ -136,14 +145,62 @@ export class Maps implements OnInit, AfterViewInit {
 }
 
 /** ✅ Muestra la info del profesional en un popup */
-  openInfo(marker: MapMarker, pro: any) {
-    this.selectedPro = pro;
-    this.infoWindow.open(marker);
-  }
+
+openInfo(marker: MapMarker, pro: any) {
+  if (!this.infoWindow) return;
+  this.selectedPro = pro;
+  this.infoWindow.open(marker);
+}
 
   /** ✅ Navega al detalle del profesional */
   openProfessionalDetail(pro: any) {
     this.router.navigate(['/detail-profesional', pro.id]);
   }
+async requestService(pro: any) {
+  if (!pro || !pro.id) return;
+
+  // Evitar múltiples solicitudes del mismo paciente
+  const patient = this.professionalsService.getCurrentUser();
+  if (!patient) {
+    alert('Debes iniciar sesión como paciente para solicitar atención.');
+    return;
+  }
+
+  if (patient['role'] !== 'cliente') {
+    alert('Solo los pacientes pueden solicitar atención.');
+    return;
+  }
+
+  try {
+    // 1️⃣ Verificar si el paciente tiene solicitudes pendientes
+    const hasPending = await this.professionalsService.hasPendingRequest(patient.id);
+    if (hasPending) {
+      alert('Ya tienes una solicitud pendiente. Espera que finalice antes de crear otra.');
+      return;
+    }
+
+    // 2️⃣ Verificar si el profesional está disponible
+    if (!pro.isOnline) {
+      alert('El profesional no está disponible en este momento.');
+      return;
+    }
+
+    // 3️⃣ Crear la solicitud
+    const req = await this.professionalsService.createRequest({
+      patient: patient.id,
+      professional: pro.id,
+      location: this.center,
+      distanceKm: pro.distance,
+      status: 'pending',
+    });
+
+    alert(`Solicitud enviada a ${pro.name}. Esperando respuesta.`);
+    console.log('✅ Solicitud creada:', req);
+  } catch (err) {
+    console.error('❌ Error creando solicitud:', err);
+    alert('No se pudo crear la solicitud.');
+  }
+}
+
 
 }

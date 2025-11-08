@@ -5,6 +5,7 @@ import { Header } from './components/header/header';
 import { FooterMenu } from './components/footer-menu/footer-menu';
 import { AuthPocketbaseService } from './services/auth-pocketbase.service';
 import { environment } from './environments/environment';
+import { ProfessionalsService } from './services/professionals.service';
 
 @Component({
   selector: 'app-root',
@@ -20,14 +21,25 @@ export class App {
   isLoggedIn = false;
   userRole: string | null = null;
 
-    constructor(public scriptLoader: ScriptLoader, private router: Router, private auth: AuthPocketbaseService) { }
+    constructor(public scriptLoader: ScriptLoader, private router: Router, private auth: AuthPocketbaseService, private professionalsService: ProfessionalsService) { }
 async ngOnInit() {
-    // refresca si existe sesión válida en cookie
-    const valid = await this.auth.initSession();
-    this.isLoggedIn = valid;
-    this.userRole = this.auth.currentUser?.['role'] ?? null;
-    this.loadGoogleMaps();
+  // 🔹 Cargar sesión desde storage antes de cualquier servicio
+  const valid = await this.auth.initSession();
+
+  this.isLoggedIn = valid;
+  this.userRole = this.auth.currentUser?.['role'] ?? null;
+
+  if (valid) {
+    console.log('👤 Sesión activa:', this.auth.currentUser);
+  } else {
+    console.log('🚫 No hay sesión activa');
   }
+
+  // 🔹 Solo ahora puedes inicializar otros servicios
+  this.loadGoogleMaps();
+  this.professionalsService.listenAppointmentsRealtime();
+}
+
 
   private loadGoogleMaps() {
     const script = document.createElement('script');

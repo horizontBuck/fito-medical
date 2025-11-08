@@ -22,3 +22,51 @@
   border: 1px solid #ccc;
   background: white;
 }
+.info-card {
+  width: 220px;
+  text-align: center;
+  font-family: 'Work Sans', sans-serif;
+
+  .avatar {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #0fa49e;
+    margin-bottom: 8px;
+  }
+
+  h6 {
+    font-weight: 600;
+    color: #222;
+    font-size: 15px;
+    margin: 0;
+  }
+
+  p {
+    color: #666;
+    font-size: 13px;
+    margin: 0;
+  }
+
+  hr {
+    margin: 8px 0;
+    border: none;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  button {
+    font-size: 12px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    color: #fff;
+
+    &:first-of-type {
+      background-color: #0fa49e;
+    }
+
+    &:last-of-type {
+      background-color: #28a745;
+    }
+  }
+}
