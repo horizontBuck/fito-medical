@@ -1,0 +1,74 @@
+<section class="px-6 pt-8 notification-top-area">
+  <div class="d-flex justify-content-start align-items-center gap-4 py-3">
+    <a routerLink="/" class="back-button flex-center">
+      <i class="ph ph-caret-left"></i>
+    </a>
+    <h2>Mis servicios</h2>
+  </div>
+
+  <div class="right-controls d-flex align-items-center gap-3">
+    <button class="icon-btn flex-center" title="Agregar servicio" (click)="toggleForm()">
+      <i class="ph ph-plus"></i>
+    </button>
+  </div>
+</section>
+
+<!-- FORMULARIO NUEVO SERVICIO -->
+<div class="px-6" *ngIf="showForm">
+  <form (ngSubmit)="addService()" [formGroup]="serviceForm" class="p-4 bg-light rounded-4 shadow-sm my-4">
+    <h4 class="mb-3">Agregar nuevo servicio</h4>
+
+    <div class="form-group mb-3">
+      <label>Nombre del servicio</label>
+      <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Diagnóstico clínico" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Precio</label>
+      <input type="number" class="form-control" formControlName="precio" placeholder="Ej: 30" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Imagen</label>
+      <input type="file" class="form-control" (change)="onImageSelected($event)" />
+    </div>
+
+    <div class="form-group mb-3">
+      <label>Descripción</label>
+      <textarea rows="3" class="form-control" formControlName="descripcion" placeholder="Breve descripción del servicio"></textarea>
+    </div>
+
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <button type="button" class="btn btn-secondary" (click)="toggleForm()">Cancelar</button>
+      <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid">Guardar</button>
+    </div>
+  </form>
+</div>
+
+<!-- LISTADO DE SERVICIOS -->
+<div class="px-6 pb-45 w-100 appoinment-tab-area">
+  <div class="tab-content activeTab" id="upcoming_data">
+    <div class="top-doctor-area">
+      <div class="d-flex flex-column gap-4">
+        <div class="w-100 top-doctor-item p-4" *ngFor="let servicio of servicios">
+          <div class="d-flex justify-content-between align-items-start gap-4">
+            <div class="d-flex justify-content-start align-items-start gap-4">
+              <div class="doctor-img flex-center">
+                <img [src]="servicio.imagen || 'assets/img/default-service.png'" class="h-100 rounded-3" alt="" />
+              </div>
+              <div>
+                <p class="fw-bold name">{{ servicio.nombre }}</p>
+                <p class="category">{{ servicio.descripcion }}</p>
+                <p class="fw-semibold text-primary mt-2">$ {{ servicio.precio }}</p>
+              </div>
+            </div>
+            <div class="d-flex flex-column gap-2">
+              <button class="btn btn-sm btn-outline-primary">Editar</button>
+              <button class="btn btn-sm btn-outline-danger" (click)="deleteService(servicio)">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

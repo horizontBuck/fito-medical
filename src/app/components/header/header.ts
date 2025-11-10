@@ -52,6 +52,7 @@ export class Header implements OnInit, OnDestroy {
           'profile/professional/edit-professional',
           'profile/professional/settings',
           'profile/professional/detail',
+          'profile/professional/services',
         ];
         this.showHeader = !hideRoutes.some((r) => event.url.includes(r));
       });

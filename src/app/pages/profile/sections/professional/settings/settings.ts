@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ProfileService } from '../../../../../services/profile.service';
-import { Router, RouterLink, RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { AuthPocketbaseService } from '../../../../../services/auth-pocketbase.service';
 import { ProfessionalsService } from '../../../../../services/professionals.service';
 
@@ -30,11 +30,16 @@ export class Settings implements OnInit {
 
   // Navigate to personal data edit
   editPersonalProfile() {
-    this.router.navigate(['/profile/professional/edit']);
+    this.router.navigate(['/profile/professional/edit-personal']);
   }
 
   // Navigate to professional data edit
   editProfessionalProfile() {
     this.router.navigate(['/profile/professional/edit-professional']);
   }
+
+  services() {
+    this.router.navigate(['/profile/professional/services']);
+  }
+
 }
