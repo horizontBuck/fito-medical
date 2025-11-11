@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Location } from '@angular/common';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ProfileService } from '../../../../../services/profile.service';
 import { CategoriesService } from '../../../../../services/categories.service';
@@ -11,7 +11,7 @@ import { Category, SubCategory } from '../../../../../interfaces/category.interf
 @Component({
   selector: 'app-profile-edit-professional',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './profile-edit-professional.html',
   styleUrl: './profile-edit-professional.scss',
 })
@@ -41,14 +41,35 @@ export class ProfileEditProfessional implements OnInit {
         }
 
         // Cargar categorías y luego intentar preseleccionar
-        this.loadCategories(() => {
+        /* this.loadCategories(() => {
           if (this.user.specialty) {
             this.setInitialCategoryAndSubcategory();
           }
-        });
+        }); */
+         this.loadCategories(() => {
+        this.setInitialCategory();
+      });
       }
     });
   }
+
+
+/** ✅ Detectar y establecer la categoría inicial guardada */
+private setInitialCategory() {
+  // Si el usuario ya tiene guardada una categoría (por ID o nombre)
+  if (this.user.category) {
+    const match = this.categories.find(
+      (cat) =>
+        cat.id === this.user.category ||
+        cat.name === this.user.category ||
+        cat.name === this.user.category?.name
+    );
+    if (match) {
+      this.selectedCategory = match.id;
+      console.log('✅ Categoría preseleccionada:', match.name);
+    }
+  }
+}
 
   /** ✅ Cargar categorías desde PocketBase */
   loadCategories(onLoaded?: () => void) {
@@ -121,7 +142,7 @@ export class ProfileEditProfessional implements OnInit {
   }
 
   /** ✅ Guardar cambios en el perfil */
-  async saveProfile() {
+ /*  async saveProfile() {
     if (this.isSaving) return;
 
     try {
@@ -156,7 +177,44 @@ export class ProfileEditProfessional implements OnInit {
     } finally {
       this.isSaving = false;
     }
+  } */
+  async saveProfile() {
+  if (this.isSaving) return;
+
+  try {
+    this.isSaving = true;
+
+    const userToUpdate = {
+      ...this.user,
+      category: this.selectedCategory || this.user.category,
+      modalidadAtencion: Array.isArray(this.user.modalidadAtencion)
+        ? this.user.modalidadAtencion
+        : [],
+    };
+
+    await this.profileService.updateProfile(userToUpdate);
+
+    await Swal.fire({
+      title: '¡Perfil actualizado con éxito!',
+      icon: 'success',
+      timer: 2000,
+      showConfirmButton: true,
+    });
+
+    this.goBack();
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    Swal.fire({
+      title: 'Error al actualizar el perfil',
+      icon: 'error',
+      timer: 2000,
+      showConfirmButton: true,
+    });
+  } finally {
+    this.isSaving = false;
   }
+}
+
 
   /** ✅ Volver atrás */
   goBack() {

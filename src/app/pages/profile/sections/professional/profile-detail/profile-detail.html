@@ -20,16 +20,10 @@
 
       <div class="doctor-profile-bottom">
         <div class="bottom-top">
-          <div class="d-flex justify-content-between align-items-center">
-            <h2>{{professional?.name}}</h2>
-            <button><i class="ph-fill ph-heart-straight"></i></button>
-          </div>
-          <p class="pt-1">{{professional?.category}}</p>
-          <div
-            class="doctor-info d-flex justify-content-between align-items-center pt-6 flex-wrap gap-2"
-          >
+         
+          <div class="row doctor-info d-flex justify-content-between align-items-center pt-6 flex-wrap gap-2">
             <div
-              class="item d-flex justify-content-start align-items-center gap-2"
+              class="item d-flex justify-content-start align-items-center gap-2 col-4"
             >
               <i class="ph ph-users-three d-block"></i>
               <div class="">
@@ -38,7 +32,7 @@
               </div>
             </div>
             <div
-              class="item d-flex justify-content-start align-items-center gap-2"
+              class="item d-flex justify-content-start align-items-center gap-2 col-4"
             >
               <i class="ph ph-user d-block"></i>
               <div class="">
@@ -47,7 +41,7 @@
               </div>
             </div>
             <div
-              class="item d-flex justify-content-start align-items-center gap-2"
+              class="item d-flex justify-content-start align-items-center gap-2 col-4"
             >
               <i class="ph ph-chat-text d-block"></i>
               <div class="">
@@ -58,17 +52,50 @@
           </div>
         </div>
 
+     
         <div class="doctor-about">
-          <h3>{{user?.name}}</h3>
-          <p class="pt-5">
-           {{user?.Biography}}
-          </p>
+  <h3><i class="ph ph-user"></i> {{ user?.name }}</h3>
+  <p *ngIf="user?.gender">
+    <i class="ph ph-gender-intersex"></i>
+    {{ user.gender }}
+  </p>
+ <p *ngIf="user?.category?.name">
+  <i class="ph ph-briefcase"></i>
+  {{ user.category.name }}
+</p>
 
-          <div class="d-flex flex-column gap-8 mt-8">
-            <a
-              class="link-button d-block text-center"
-              >Solicitar Cita</a
-            >
+
+
+  <p class="pt-5"> <i class="ph ph-briefcase"></i> {{ user?.Biography }}</p>
+  
+  <h5 class="fw-semibold mb-3">Servicios ofrecidos</h5>
+<div *ngIf="loadingServices" class="text-center text-muted py-3">
+      Cargando servicios...
+    </div>
+
+    <div *ngIf="!loadingServices && services.length === 0" class="text-center text-muted">
+      Este profesional aún no ha registrado servicios.
+    </div>
+
+    <div class="row g-3" *ngIf="!loadingServices && services.length > 0">
+      <div class="col-6 col-md-4 col-lg-3" *ngFor="let service of services" >
+        <div class="card shadow-sm border-0 h-100" style="background: #0fa49e4f;
+    border-radius: 10px;">
+          <div class="card-body text-center p-3">
+            <div class="fs-3 mb-2">{{ getServiceIcon(service.icon) }}</div>
+            <h6 class="fw-bold mb-1 text-truncate">{{ service.name }}</h6>
+            <p class="text-muted small text-truncate mb-2">{{ service.description }}</p>
+            <p class="fw-semibold text-primary mb-0">
+              {{ service.price | currency: 'COP':'symbol':'1.0-0' }}
+            </p>
+            <p *ngIf="service.requiresPrescription" class="text-danger small mt-1 mb-0">
+              <i class="ph ph-warning-circle"></i> Requiere fórmula médica
+            </p>
           </div>
         </div>
+      </div>
+    </div>
+
+</div>
+
       </div>

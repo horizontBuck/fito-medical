@@ -46,47 +46,7 @@ getCurrentUserId(): string | undefined {
   return pb.authStore.model?.id;
 }
 
-  /** 🔹 Cargar profesionales aprobados (SDK PocketBase) */
-/*   async loadProfessionals(): Promise<void> {
-    console.log('🔍 Cargando profesionales aprobados...');
 
-    try {
-      const records = await pb.collection(this.collection).getFullList<Professional>({
-        filter: '(role = "proveedor" || role = "experto") && (providerStatus = "approved" || providerStatus = "aprobado")',
-        sort: '-created',
-        fields: 'id,name,email,avatarFile,profession,businessName,providerStatus,phone,especialidades,modalidadAtencion,zonaAtencion',
-      });
-
-      console.log(`📦 ${records.length} registros recibidos de PocketBase`);
-
-      const processed = records.map((u: any) => ({
-        id: u.id,
-        name: u.name || 'Profesional',
-        email: u.email,
-        avatarFile: u.avatarFile,
-        profession: u.profession || 'Profesional de la salud',
-        businessName: u.businessName || 'Consultorio particular',
-        providerStatus: u.providerStatus,
-        phone: u.phone,
-        especialidades: this.parseJson(u.especialidades),
-        modalidadAtencion: this.parseJson(u.modalidadAtencion),
-        zonaAtencion: this.parseJson(u.zonaAtencion),
-        rating: u.rating || Math.round(Math.random() * 10) / 2 + 3.5,
-        price: u.price || Math.floor(Math.random() * 30) + 20,
-        Biography: u.Biography,
-        gender: u.gender,
-        lat: u.lat,
-        lng: u.lng,
-        isOnline: u.isOnline,
-      }));
-
-      this._professionals$.next(processed);
-      console.log('✅ Profesionales procesados y emitidos:', processed);
-    } catch (error) {
-      console.error('❌ Error al cargar profesionales:', error);
-      this._professionals$.next([]);
-    }
-  } */
 
   async loadProfessionals(): Promise<void> {
   console.log('🔍 Cargando profesionales aprobados...');
@@ -120,6 +80,7 @@ getCurrentUserId(): string | undefined {
       lat: Number(u.lat),
       lng: Number(u.lng),
       isOnline: !!u.isOnline,
+      
     }));
 
     this._professionals$.next(processed);
@@ -129,6 +90,8 @@ getCurrentUserId(): string | undefined {
     this._professionals$.next([]);
   }
 }
+
+
 
 
   /** 🔹 Convertir campos JSON de PocketBase en arrays seguros */

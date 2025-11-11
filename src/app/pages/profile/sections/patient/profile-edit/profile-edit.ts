@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthPocketbaseService } from '../../../../../services/auth-pocketbase.service';
+import Swal from 'sweetalert2';
+import PocketBase from 'pocketbase';
 
 @Component({
   selector: 'app-profile-edit',
@@ -15,6 +17,8 @@ export class ProfileEdit implements OnInit {
   patientForm: FormGroup;
   isSaving = false;
   patientId: string | null = null;
+
+  private pb = new PocketBase('https://db.colombiatoursyexperiencias.online:8559');
 
   constructor(
     private fb: FormBuilder,
@@ -34,10 +38,12 @@ export class ProfileEdit implements OnInit {
 
   async ngOnInit() {
     this.patientId = this.route.snapshot.paramMap.get('id');
-    
+
+    // si el id viene por ruta, cargamos el registro
     if (this.patientId) {
       await this.loadPatientData();
     } else {
+      // si no, usamos los datos del usuario autenticado
       const currentUser = this.authService.currentUser;
       if (currentUser) {
         this.patientForm.patchValue({
@@ -48,47 +54,56 @@ export class ProfileEdit implements OnInit {
           birthdate: currentUser['birthdate'] || '',
           gender: currentUser['gender'] || ''
         });
+        this.patientId = currentUser.id;
       }
     }
   }
 
   async loadPatientData() {
     try {
-      // TODO: Implement patient data loading from your service
-      // const patient = await this.patientService.getPatientById(this.patientId);
-      // this.patientForm.patchValue(patient);
+      const patient = await this.pb.collection('users').getOne(this.patientId!);
+      this.patientForm.patchValue(patient);
     } catch (error) {
       console.error('Error loading patient data:', error);
+      Swal.fire('Error', 'No se pudo cargar la información del paciente', 'error');
     }
   }
 
   async savePatient() {
     if (this.patientForm.invalid) {
+      this.patientForm.markAllAsTouched();
       return;
     }
 
     this.isSaving = true;
+
     try {
       const patientData = this.patientForm.value;
-      
+
+      // Guardamos directamente sobre la colección "users" o "patients"
       if (this.patientId) {
-        // Update existing patient
-        // await this.patientService.updatePatient(this.patientId, patientData);
+        await this.pb.collection('users').update(this.patientId, patientData);
       } else {
-        // Create new patient
-        // await this.patientService.createPatient(patientData);
+        await this.pb.collection('users').create(patientData);
       }
-      
-      this.router.navigate(['/']); // Redirect to home or patient list
+
+      Swal.fire({
+        title: this.patientId ? '¡Datos actualizados!' : '¡Paciente creado!',
+        icon: 'success',
+        timer: 2000,
+        showConfirmButton: false,
+      });
+
+      this.router.navigate(['/profile/patient/detail']);
     } catch (error) {
       console.error('Error saving patient:', error);
+      Swal.fire('Error', 'Hubo un problema al guardar la información', 'error');
     } finally {
       this.isSaving = false;
     }
   }
 
   goBack() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/profile/patient/detail']);
   }
-  
 }

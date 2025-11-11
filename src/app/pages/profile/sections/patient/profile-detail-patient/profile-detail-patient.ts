@@ -35,7 +35,7 @@ export class ProfileDetailPatient implements OnInit {
   this.router.navigate(['/']);
 }
 edit() {
-  this.router.navigate(['/profile/patient/editPatient']);
+  this.router.navigate(['/profile/patient/edit']);
 }
 
 

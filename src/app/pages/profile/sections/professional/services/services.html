@@ -1,13 +1,19 @@
 <section class="px-6 pt-8 notification-top-area">
-  <div class="d-flex justify-content-start align-items-center gap-4 py-3">
-    <a routerLink="/" class="back-button flex-center">
-      <i class="ph ph-caret-left"></i>
-    </a>
-    <h2>Mis servicios</h2>
-  </div>
+  <div class="d-flex justify-content-between align-items-center py-3">
+    <div class="d-flex align-items-center gap-3">
+      <a routerLink="/" class="back-button flex-center text-decoration-none text-dark">
+        <i class="ph ph-caret-left fs-4" style="color: #fff;"></i>
+      </a>
+      <h2 class="mb-0 fw-semibold">Mis servicios</h2>
+    </div>
 
-  <div class="right-controls d-flex align-items-center gap-3">
-    <button class="icon-btn flex-center" title="Agregar servicio" (click)="toggleForm()">
+    <!-- Botón agregar servicio -->
+    <button
+      class="btn rounded-circle shadow d-flex align-items-center justify-content-center"
+      title="Agregar servicio"
+      (click)="toggleForm()"
+      style="width: 48px; height: 48px; font-size: 22px; background-color: var(--n1); color: #fff;"
+    >
       <i class="ph ph-plus"></i>
     </button>
   </div>
@@ -15,59 +21,158 @@
 
 <!-- FORMULARIO NUEVO SERVICIO -->
 <div class="px-6" *ngIf="showForm">
-  <form (ngSubmit)="addService()" [formGroup]="serviceForm" class="p-4 bg-light rounded-4 shadow-sm my-4">
-    <h4 class="mb-3">Agregar nuevo servicio</h4>
+  <form
+    (ngSubmit)="addService()"
+    [formGroup]="serviceForm"
+    class="p-4 bg-light rounded-4 shadow-sm my-4"
+  >
+    <h4 class="mb-4 fw-semibold text-center">Agregar nuevo servicio</h4>
 
     <div class="form-group mb-3">
-      <label>Nombre del servicio</label>
-      <input type="text" class="form-control" formControlName="nombre" placeholder="Ej: Diagnóstico clínico" />
+      <label class="fw-semibold">Nombre</label>
+      <input
+        type="text"
+        class="form-control"
+        formControlName="name"
+        placeholder="Ej: Aplicación de medicamentos"
+      />
     </div>
 
     <div class="form-group mb-3">
-      <label>Precio</label>
-      <input type="number" class="form-control" formControlName="precio" placeholder="Ej: 30" />
+      <label class="fw-semibold">Precio (COP)</label>
+      <input
+        type="number"
+        class="form-control"
+        formControlName="price"
+        placeholder="Ej: 30000"
+      />
     </div>
 
     <div class="form-group mb-3">
-      <label>Imagen</label>
+      <label class="fw-semibold">Descripción</label>
+      <textarea
+        rows="3"
+        class="form-control"
+        formControlName="description"
+        placeholder="Breve descripción"
+      ></textarea>
+    </div>
+
+    <!-- ✅ Selección de icono -->
+    <div class="form-group mb-3">
+      <label class="fw-semibold">Icono del servicio</label>
+      <select class="form-select" formControlName="icon">
+        <option value="">Seleccionar icono</option>
+        <option value="syringe">💉 Jeringa</option>
+        <option value="bandage">🩹 Curación</option>
+        <option value="monitor">🩺 Monitor</option>
+        <option value="catheter">🧫 Sonda</option>
+        <option value="glucometer">🩸 Glucometría</option>
+      </select>
+    </div>
+
+    <!-- ✅ Requiere fórmula médica -->
+    <div class="form-group mb-4">
+      <label class="fw-semibold">¿Requiere fórmula médica?</label>
+      <div class="d-flex gap-4 mt-2">
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="requiresPrescription"
+            [value]="true"
+            id="reqSi"
+          />
+          <label for="reqSi" class="form-check-label">Sí</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            formControlName="requiresPrescription"
+            [value]="false"
+            id="reqNo"
+          />
+          <label for="reqNo" class="form-check-label">No</label>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mb-3">
+      <label class="fw-semibold">Imagen (opcional)</label>
       <input type="file" class="form-control" (change)="onImageSelected($event)" />
     </div>
 
-    <div class="form-group mb-3">
-      <label>Descripción</label>
-      <textarea rows="3" class="form-control" formControlName="descripcion" placeholder="Breve descripción del servicio"></textarea>
+    <div class="d-flex justify-content-end gap-3 mt-4">
+      <button type="button" class="btn btn-outline-secondary px-4" (click)="toggleForm()">
+        Cancelar
+      </button>
+      <button type="submit" class="btn btn-primary px-4" [disabled]="loading || serviceForm.invalid">
+        {{ loading ? 'Guardando...' : 'Guardar' }}
+      </button>
     </div>
 
-    <div class="d-flex justify-content-end gap-3 mt-4">
-      <button type="button" class="btn btn-secondary" (click)="toggleForm()">Cancelar</button>
-      <button type="submit" class="btn btn-primary" [disabled]="serviceForm.invalid">Guardar</button>
-    </div>
+    <p *ngIf="errorMsg" class="text-danger mt-3">{{ errorMsg }}</p>
   </form>
 </div>
 
 <!-- LISTADO DE SERVICIOS -->
-<div class="px-6 pb-45 w-100 appoinment-tab-area">
-  <div class="tab-content activeTab" id="upcoming_data">
+<div class="px-6 pb-5 w-100 appoinment-tab-area">
+  <div class="tab-content activeTab">
     <div class="top-doctor-area">
-      <div class="d-flex flex-column gap-4">
-        <div class="w-100 top-doctor-item p-4" *ngFor="let servicio of servicios">
-          <div class="d-flex justify-content-between align-items-start gap-4">
-            <div class="d-flex justify-content-start align-items-start gap-4">
-              <div class="doctor-img flex-center">
-                <img [src]="servicio.imagen || 'assets/img/default-service.png'" class="h-100 rounded-3" alt="" />
+      <div class="row g-4">
+        <!-- CARD DE SERVICIO -->
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let servicio of servicios">
+          <div class="p-4 border rounded-4 shadow-sm h-100 d-flex flex-column justify-content-between">
+            <div class="d-flex align-items-start gap-3">
+              <div class="flex-shrink-0" style="width: 64px; height: 64px;">
+                <img
+                  [src]="getImageUrl(servicio)"
+                  class="rounded-3 w-100 h-100 object-fit-cover"
+                  alt="imagen servicio"
+                />
               </div>
-              <div>
-                <p class="fw-bold name">{{ servicio.nombre }}</p>
-                <p class="category">{{ servicio.descripcion }}</p>
-                <p class="fw-semibold text-primary mt-2">$ {{ servicio.precio }}</p>
+              <div class="flex-grow-1">
+                <p class="fw-bold mb-1">
+                  {{
+                    servicio.icon === 'syringe'
+                      ? '💉'
+                      : servicio.icon === 'bandage'
+                      ? '🩹'
+                      : servicio.icon === 'monitor'
+                      ? '🩺'
+                      : servicio.icon === 'catheter'
+                      ? '🧫'
+                      : servicio.icon === 'glucometer'
+                      ? '🩸'
+                      : ''
+                  }}
+                  {{ servicio.name }}
+                </p>
+                <p class="text-muted small mb-1">{{ servicio.description }}</p>
+                <p class="fw-semibold text-primary mb-1">
+                  $ {{ servicio.price | number : '1.0-0' }}
+                </p>
+
+                <p *ngIf="servicio.requiresPrescription" class="text-danger small mt-1 mb-0">
+                  <i class="ph ph-warning-circle"></i> Requiere fórmula médica
+                </p>
               </div>
             </div>
-            <div class="d-flex flex-column gap-2">
-              <button class="btn btn-sm btn-outline-primary">Editar</button>
-              <button class="btn btn-sm btn-outline-danger" (click)="deleteService(servicio)">Eliminar</button>
+
+            <!-- Botones alineados al final -->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-3 pt-2 border-top">
+<!--               <button class="btn btn-sm btn-outline-primary px-3">Editar</button>
+ -->              <button
+                class="btn btn-sm btn-outline-danger px-3"
+                (click)="deleteService(servicio)"
+              >
+                Eliminar
+              </button>
             </div>
           </div>
         </div>
+        <!-- /CARD -->
       </div>
     </div>
   </div>

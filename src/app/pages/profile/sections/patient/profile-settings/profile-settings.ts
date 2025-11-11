@@ -31,11 +31,11 @@ user: any;
 
   // Navigate to personal data edit
   editPersonalProfile() {
-    this.router.navigate(['/profile/professional/edit']);
+    this.router.navigate(['/profile/patient/edit']);
   }
 
   // Navigate to professional data edit
-  editProfessionalProfile() {
-    this.router.navigate(['/profile/professional/edit-professional']);
+  medicalData() {
+    this.router.navigate(['/profile/patient/medical-data']);
   }
 }

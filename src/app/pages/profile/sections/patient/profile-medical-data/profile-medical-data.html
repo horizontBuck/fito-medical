@@ -1,0 +1,121 @@
+<section class="px-6 pt-8 notification-top-area">
+  <div class="d-flex justify-content-start align-items-center gap-4 py-3">
+    <a (click)="goBack()" class="back-button flex-center" style="cursor: pointer;">
+      <i class="ph ph-caret-left"></i>
+    </a>
+    <h2>{{ patientId ? 'Ficha médica' : 'Datos medicos' }}</h2>
+  </div>
+</section>
+
+<section class="sign-in-area">
+  <form [formGroup]="patientForm" (ngSubmit)="savePatient()" class="input-field-area d-flex flex-column gap-4 px-6">
+   
+    <!-- Peso -->
+    <div class="input-field-item">
+      <p>Peso (kg)</p>
+      <div class="input-field">
+        <input type="number" formControlName="weight" placeholder="Ej: 68" min="1" />
+        <i class="ph ph-scales"></i>
+      </div>
+    </div>
+
+    <!-- Estatura -->
+    <div class="input-field-item">
+      <p>Estatura (cm)</p>
+      <div class="input-field">
+        <input type="number" formControlName="height" placeholder="Ej: 172" min="50" />
+        <i class="ph ph-ruler"></i>
+      </div>
+    </div>
+
+    <!-- Tipo de sangre -->
+    <div class="input-field-item">
+      <p>Tipo de Sangre</p>
+      <select class="form-select" formControlName="blood_type">
+        <option value="">Selecciona tu tipo</option>
+        <option *ngFor="let type of bloodTypes" [value]="type">{{ type }}</option>
+      </select>
+    </div>
+
+    <!-- Alergias -->
+    <div class="input-field-item">
+      <p>Alergias</p>
+      <textarea formControlName="allergies" rows="2" placeholder="Ej: Penicilina, mariscos"></textarea>
+    </div>
+
+    <!-- Enfermedades genéticas -->
+    <div class="input-field-item">
+      <p>Enfermedades genéticas</p>
+      <textarea formControlName="genetic_conditions" rows="2" placeholder="Ej: Diabetes, hipertensión"></textarea>
+    </div>
+
+    <!-- Cirugías -->
+    <div class="input-field-item">
+      <p>Cirugías previas</p>
+      <textarea formControlName="surgeries" rows="2" placeholder="Ej: Apendicectomía (2020)"></textarea>
+    </div>
+
+    <!-- Enfermedades crónicas -->
+    <div class="input-field-item">
+      <p>Enfermedades crónicas</p>
+      <textarea formControlName="chronic_diseases" rows="2" placeholder="Ej: Asma, hipotiroidismo"></textarea>
+    </div>
+
+    <!-- Medicamentos actuales -->
+    <div class="input-field-item">
+      <p>Medicamentos actuales</p>
+      <textarea formControlName="medications" rows="2" placeholder="Ej: Metformina 500mg diario"></textarea>
+    </div>
+
+    <!-- Presión arterial -->
+    <div class="input-field-item">
+      <p>Presión arterial</p>
+      <div class="input-field">
+        <input type="text" formControlName="blood_pressure" placeholder="Ej: 120/80 mmHg" />
+        <i class="ph ph-heart"></i>
+      </div>
+    </div>
+
+    <!-- Hijos (solo si es mujer) -->
+    <div class="input-field-item" *ngIf="patientForm.get('gender')?.value === 'Femenino'">
+      <p>Número de hijos</p>
+      <div class="input-field">
+        <input type="number" formControlName="pregnancies" placeholder="Ej: 2" min="0" />
+        <i class="ph ph-baby"></i>
+      </div>
+    </div>
+
+    <!-- Observaciones -->
+    <div class="input-field-item">
+      <p>Observaciones</p>
+      <textarea formControlName="observation" rows="3" placeholder="Anota cualquier información adicional relevante"></textarea>
+    </div>
+    <!-- Botones -->
+    <div class="d-flex flex-column gap-3 align-items-center w-100 mt-4">
+       <!--  <button type="submit" (click)="savePatient()" class="btn btn-primary w-100 py-3">
+            Guardar
+        </button>   --> 
+      <button 
+        type="submit" 
+        class="link-button d-block text-center w-100 py-3"
+        (click)="savePatient()"
+      >
+        <span *ngIf="!isSaving">
+          {{ patientId ? 'Actualizar' : 'Guardar' }}
+        </span>
+        <span *ngIf="isSaving" class="spinner-border spinner-border-sm" role="status">
+          <span class="visually-hidden">Cargando...</span>
+        </span>
+      </button>
+      
+      <button 
+        type="button" 
+        class="btn btn-outline-secondary w-100"
+        (click)="goBack()"
+        [disabled]="isSaving"
+      >
+        Cancelar
+      </button>
+    </div>
+  </form>
+</section>

@@ -123,12 +123,12 @@
         Por favor selecciona un género
       </div>
     </div>
-
+    
     <!-- Botones -->
     <div class="d-flex flex-column gap-3 align-items-center w-100 mt-4">
       <button 
         type="submit" 
-        class="btn btn-primary w-100 py-3"
+        class="link-button d-block text-center w-100 py-3"
         [disabled]="patientForm.invalid || isSaving"
       >
         <span *ngIf="!isSaving">

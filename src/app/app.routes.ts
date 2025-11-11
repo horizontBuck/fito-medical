@@ -17,6 +17,7 @@ import { Maps } from './pages/maps/maps';
 import { from } from 'rxjs';
 import { OrderTracking } from './pages/order-tracking/order-tracking';
 import { Services } from './pages/profile/sections/professional/services/services';
+import { ProfileMedicalData } from './pages/profile/sections/patient/profile-medical-data/profile-medical-data';
 
 
 export const routes: Routes = [
@@ -93,6 +94,7 @@ export const routes: Routes = [
         { path: 'detail', component: ProfileDetailPatient },
         { path: 'settingsPatient', component: ProfileSettings },
         { path: 'edit', component: ProfileEdit },
+        { path: 'medical-data', component: ProfileMedicalData },
       ],
     },
     { path: '', redirectTo: 'patient', pathMatch: 'full' },
