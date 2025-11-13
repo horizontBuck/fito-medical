@@ -59,7 +59,6 @@ getCurrentUserId(): string | undefined {
       fields: 'id,name,email,avatarFile,profession,businessName,providerStatus,phone,especialidades,modalidadAtencion,zonaAtencion,lat,lng,isOnline',
     });
 
-    console.log(`📦 ${records.length} registros recibidos de PocketBase`);
 
     const processed = records.map((u: any) => ({
       id: u.id,
@@ -106,14 +105,14 @@ getCurrentUserId(): string | undefined {
 
   /** 🔹 Obtener URL pública del avatar */
 getAvatarUrl(user: Professional): string {
-  if (!user.avatarFile) return 'assets/img/default-avatar.png';
+  if (!user.avatarFile) return 'assets/img/avatar.png';
   try {
     return pb.files.getURL(
       { collectionId: '_pb_users_auth_', id: user.id },
       user.avatarFile
     );
   } catch {
-    return 'assets/img/default-avatar.png';
+    return 'assets/img/avatar.png';
   }
 }
 
@@ -268,7 +267,6 @@ async hasPendingRequest(patientId: string): Promise<boolean> {
         }
       });
 
-      console.log('✅ Suscripción realtime activa');
     } catch (err) {
       console.error('❌ Error al suscribirse a realtime:', err);
     }

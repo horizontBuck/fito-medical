@@ -41,7 +41,6 @@ loadProfessionals() {
     this.isLoading = true;
     this.professionalsService.professionals$.subscribe({
       next: (pros) => {
-        console.log('Professionals loaded:', pros);
         this.professionals = pros;
         this.isLoading = false;
       },

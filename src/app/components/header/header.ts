@@ -79,6 +79,11 @@ export class Header implements OnInit, OnDestroy {
             this.currentLocation = user.address || 'No disponible';
           }
         }
+        if (user.role === 'cliente') {
+  setInterval(() => this.updatePatientLocationAuto(), 30000); // 30s
+}
+
+
       });
   }
 
@@ -139,9 +144,6 @@ private async loadProfessionalLocation() {
     this.currentLocation = 'Ubicación no disponible';
   }
 }
-
-
-
 
   /** 🔵 Inversión de coordenadas → dirección */
   private async reverseGeocode(lat: number, lng: number): Promise<string | null> {
@@ -224,6 +226,30 @@ private async loadProfessionalLocation() {
       Swal.fire('Error', 'No se pudo obtener tu ubicación.', 'error');
     }
   }
+async updatePatientLocationAuto() {
+  if (!navigator.geolocation) return;
+
+  try {
+    const pos = await new Promise<GeolocationPosition>((resolve, reject) =>
+      navigator.geolocation.getCurrentPosition(resolve, reject, {
+        enableHighAccuracy: true,
+        timeout: 8000,
+      })
+    );
+
+    const address = await this.reverseGeocode(pos.coords.latitude, pos.coords.longitude);
+
+    this.currentLocation = address || 'Ubicación desconocida';
+
+    await this.authService.updateMyFields({
+      lat: pos.coords.latitude,
+      lng: pos.coords.longitude,
+      address: address || '',
+    });
+  } catch {
+    console.warn("No se pudo actualizar ubicación automáticamente");
+  }
+}
 
   /** Navegar a edición de profesional */
   goToEditProfessional() {

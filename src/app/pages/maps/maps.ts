@@ -27,7 +27,9 @@ export class Maps implements OnInit, AfterViewInit {
 
   @ViewChild('search') searchElementRef!: ElementRef;
 
-  center: google.maps.LatLngLiteral = { lat: 4.711, lng: -74.0721 }; // Bogotá por defecto
+ /*  center: google.maps.LatLngLiteral = { lat: 4.711, lng: -74.0721 }; */ // Bogotá por defecto
+  center: google.maps.LatLngLiteral | null = null;
+
   zoom = 14;
   selectedMarker: google.maps.LatLngLiteral | null = null;
   mapReady = false;
@@ -80,7 +82,7 @@ export class Maps implements OnInit, AfterViewInit {
       { fields: ['geometry', 'name'] }
     );
 
-    autocomplete.addListener('place_changed', () => {
+    /* autocomplete.addListener('place_changed', () => {
       this.ngZone.run(() => {
         const place = autocomplete.getPlace();
         if (!place.geometry || !place.geometry.location) return;
@@ -93,7 +95,26 @@ export class Maps implements OnInit, AfterViewInit {
         this.zoom = 15;
         this.loadNearbyProfessionals();
       });
-    });
+    }); */
+    autocomplete.addListener('place_changed', () => {
+  this.ngZone.run(() => {
+    const place = autocomplete.getPlace();
+    if (!place.geometry || !place.geometry.location) return;
+
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+
+    this.center = { lat, lng };
+    this.selectedMarker = this.center;
+    this.zoom = 15;
+
+    // ✅ fuerza detección de cambios
+    setTimeout(() => {
+      this.loadNearbyProfessionals();
+    }, 100);
+  });
+});
+
   }
 
   /** 🔹 Obtener ubicación del paciente (usuario actual) */
@@ -108,11 +129,16 @@ export class Maps implements OnInit, AfterViewInit {
           this.selectedMarker = this.center;
           this.loadNearbyProfessionals(); // 👈 busca pros al obtener ubicación
         },
-        (err) => {
+        /* (err) => {
           console.warn('No se pudo obtener ubicación, usando Bogotá:', err);
           this.center = { lat: 4.711, lng: -74.0721 };
           this.loadNearbyProfessionals();
-        },
+        }, */
+        (err) => {
+  console.warn('No se pudo obtener ubicación del usuario:', err);
+  alert('No se pudo obtener tu ubicación. Usa el buscador para elegir un lugar.');
+},
+
         { enableHighAccuracy: true, timeout: 10000 }
       );
     } else {
@@ -122,7 +148,7 @@ export class Maps implements OnInit, AfterViewInit {
   }
 
   /** 🔹 Cargar profesionales cercanos */
- private loadNearbyProfessionals() {
+/*  private loadNearbyProfessionals() {
   console.log('📡 Buscando profesionales cerca de:', this.center);
 
   this.professionalsService
@@ -135,6 +161,32 @@ export class Maps implements OnInit, AfterViewInit {
         distance: this.professionalsService.haversineDistance(
           this.center.lat,
           this.center.lng,
+          Number(p.lat),
+          Number(p.lng)
+        ),
+      }));
+
+      console.log('📍 Profesionales dentro del radio (10 km):', this.nearbyPros);
+    });
+} */
+private loadNearbyProfessionals() {
+  if (!this.center) {
+    console.warn('⚠️ No hay coordenadas disponibles para buscar profesionales.');
+    return;
+  }
+
+  console.log('📡 Buscando profesionales cerca de:', this.center);
+
+  this.professionalsService
+    .getNearbyProfessionals(this.center.lat, this.center.lng, 10)
+    .subscribe((pros) => {
+      console.log('👀 Profesionales recibidos del servicio:', pros);
+
+      this.nearbyPros = pros.map((p) => ({
+        ...p,
+        distance: this.professionalsService.haversineDistance(
+          this.center!.lat, // el "!" le dice a TS que ya validamos que no es null
+          this.center!.lng,
           Number(p.lat),
           Number(p.lng)
         ),

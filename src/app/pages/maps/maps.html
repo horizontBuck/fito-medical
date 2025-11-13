@@ -147,3 +147,7 @@
   <i class="ph-duotone ph-spinner fa-spin fs-3"></i>
   <p class="ms-2">Cargando mapa...</p>
 </div>
+<div *ngIf="!center && mapReady" class="flex-center" style="height: 100vh;">
+  <p>Selecciona un lugar o permite tu ubicación para ver profesionales cercanos.</p>
+</div>
+
